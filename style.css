@@ -1,0 +1,100 @@
+body {
+  background-color: #121f26;
+}
+p {
+  color: white;
+  text-align: center;
+}
+
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Base navigation styling */
+.anime-nav {
+    position: relative;
+    padding: 10px;
+    z-index: 100;
+}
+
+/* Hide the raw checkbox input box */
+.menu-checkbox {
+    display: none;
+}
+
+/* Style the hamburger lines */
+.hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.hamburger-btn span {
+    background-color: #4ed9ff; /* Anime neon blue theme */
+    height: 4px;
+    width: 100%;
+    border-radius: 2px;
+    transition: 0.3s ease;
+}
+
+/* The actual menu panel (hidden by default off-screen) */
+.nav-links {
+    position: absolute;
+    top: 40px;
+    left: -260px; /* Hidden off the left side */
+    background-color: #121f26; /* Matches your dark card background */
+    width: 200px;
+    padding: 20px;
+    border-radius: 4px;
+    list-style: none;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.nav-links li {
+    margin: 15px 0;
+}
+
+/* Clean text colors inside menu */
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 18px;
+    display: block;
+}
+
+/* Darken font slightly when hovering links */
+.nav-links a:hover {
+    color: #4ed9ff;
+}
+
+/* MAGIC STEP: When checkbox is checked, slide the menu into view! */
+.menu-checkbox:checked ~ .nav-links {
+    left: 0;
+}
+
+/* Optional: Turn hamburger into an 'X' when menu opens */
+.menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+.menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
+    opacity: 0;
+}
+.menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -7px);
+}
