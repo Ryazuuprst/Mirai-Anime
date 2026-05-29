@@ -1,100 +1,79 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 body {
-  background-color: #121f26;
+    font-family: "Poppins", sans-serif;
+    --color1: #FFF ;
+    --color2: #181818 ;
 }
-p {
-  color: white;
-  text-align: center;
-}
-
-
-h1 {
-  color: white;
-  text-align: center;
-}
-
-p {
-  font-family: verdana;
-  font-size: 20px;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-/* Base navigation styling */
-.anime-nav {
+.nav-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
     position: relative;
-    padding: 10px;
-    z-index: 100;
+    background-color: var(--color2);
+    padding: 12px 20px;
 }
-
-/* Hide the raw checkbox input box */
-.menu-checkbox {
+.logo img {width: 40px;}
+.menu {display: flex;}
+.menu li {padding-left: 30px;}
+.menu li a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--color1);
+    text-align: center;
+    transition: 0.15s ease-in-out;
+    position: relative;
+    text-transform: uppercase;
+}
+.menu li a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color1);
+    transition: 0.15s ease-in-out;
+}
+.menu li a:hover:after {width: 100%;}
+.open-menu , .close-menu {
+    position: absolute;
+    color: var(--color1);
+    cursor: pointer;
+    font-size: 1.5rem;
     display: none;
 }
-
-/* Style the hamburger lines */
-.hamburger-btn {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 30px;
-    cursor: pointer;
+.open-menu {
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
 }
-
-.hamburger-btn span {
-    background-color: #4ed9ff; /* Anime neon blue theme */
-    height: 4px;
-    width: 100%;
-    border-radius: 2px;
-    transition: 0.3s ease;
+.close-menu {
+    top: 20px;
+    right: 20px;
 }
-
-/* The actual menu panel (hidden by default off-screen) */
-.nav-links {
-    position: absolute;
-    top: 40px;
-    left: -260px; /* Hidden off the left side */
-    background-color: #121f26; /* Matches your dark card background */
-    width: 200px;
-    padding: 20px;
-    border-radius: 4px;
-    list-style: none;
-    transition: 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
-
-.nav-links li {
-    margin: 15px 0;
-}
-
-/* Clean text colors inside menu */
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 18px;
-    display: block;
-}
-
-/* Darken font slightly when hovering links */
-.nav-links a:hover {
-    color: #4ed9ff;
-}
-
-/* MAGIC STEP: When checkbox is checked, slide the menu into view! */
-.menu-checkbox:checked ~ .nav-links {
-    left: 0;
-}
-
-/* Optional: Turn hamburger into an 'X' when menu opens */
-.menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-.menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
-    opacity: 0;
-}
-.menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -7px);
+#check {display: none;}
+@media(max-width: 610px){
+    .menu {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        z-index: 100;
+        background-color: var(--color2);
+        transition: all 0.2s ease-in-out;
+    }
+    .menu li {margin-top: 40px;}
+    .menu li a {padding: 10px;}
+    .open-menu , .close-menu {display: block;}
+    #check:checked ~ .menu {right: 0;}
 }
