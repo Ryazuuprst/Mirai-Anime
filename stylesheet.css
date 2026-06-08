@@ -26,13 +26,4 @@ a {
     margin: 40px;
     background-color: #23495f;
     padding: 30px;
-    border-radius: 4px;
-}
-
-.anime-card{
-  background-color:#122038;
-  padding:  0px 0px 10px 0px;
-  border-radius: 4px;
-  overflow: hidden;
-  display: inline-block;
 }
