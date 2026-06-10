@@ -54,12 +54,6 @@
         }
         .synopsis-area h4 { margin: 0 0 8px 0; color: #4ed9ff; }
         .synopsis-area p { color: #ffffff; font-size: 14px; line-height: 1.5; text-align: left; }
-
-        /* Keeps the layout looking exactly like your old button styles */
-        .ep-selector-btn {
-            text-decoration: none;
-            display: inline-block;
-        }
     </style>
 </head>
 <body>
@@ -87,18 +81,20 @@
         This is a new update. We hope you understand if you experience any bug.    
     </marquee> 
 
+    
     <div class="showcase-banner">
         <div class="meta-grid">
             <div class="poster-box">
-                <img src="https://image.tmdb.org/t/p/w500/5E7GL8KxpFemEFl3Lv8Fu4RuSwa.jpg" alt="Anime Poster">
+                
+                <img src="https://image.tmdb.org/t/p/w500/aEJVHbXaC94y6thJ3nA6lBBnHjs.jpg" alt="Anime Poster">
             </div>
             <div class="details-box">
                 <h2 id="anime-title">Loading Title...</h2>
                 <p><b>📺 Type:</b> TV Series (No seasons layout)</p>
-                <p><b>📅 Year:</b> 2012</p>
-                <p><b>⭐ Rating:</b> 8.1 / 10</p>
+                <p><b>📅 Year:</b> 2023</p>
+                <p><b>⭐ Rating:</b> 7.7 / 10</p>
                 <p><b>⏱️ Runtime:</b> 24 mins per ep</p>
-                <p><b>🎭 Genres:</b> Comedy, Fantasy, Romance, Supernatural</p>
+                <p><b>🎭 Genres:</b> Comedy, Romance, School, Shounen</p>
             </div>
         </div>
         <div class="synopsis-area">
@@ -107,23 +103,23 @@
         </div>
     </div>
 
+    
     <div class="episode-list-container">
         <h3 class="episode-list-title">Episodes:</h3>
         <div class="episode-grid">
-            <!-- All buttons changed to anchors pointing dynamically to your future file -->
-            <a href="kamisamakiss.html?ep=1" class="ep-selector-btn">Ep 1</a>
-            <a href="kamisamakiss.html?ep=2" class="ep-selector-btn">Ep 2</a>
-            <a href="kamisamakiss.html?ep=3" class="ep-selector-btn">Ep 3</a>
-            <a href="kamisamakiss.html?ep=4" class="ep-selector-btn">Ep 4</a>
-            <a href="kamisamakiss.html?ep=5" class="ep-selector-btn">Ep 5</a>
-            <a href="kamisamakiss.html?ep=6" class="ep-selector-btn">Ep 6</a>
-            <a href="kamisamakiss.html?ep=7" class="ep-selector-btn">Ep 7</a>
-            <a href="kamisamakiss.html?ep=8" class="ep-selector-btn">Ep 8</a>
-            <a href="kamisamakiss.html?ep=9" class="ep-selector-btn">Ep 9</a>
-            <a href="kamisamakiss.html?ep=10" class="ep-selector-btn">Ep 10</a>
-            <a href="kamisamakiss.html?ep=11" class="ep-selector-btn">Ep 11</a>
-            <a href="kamisamakiss.html?ep=12" class="ep-selector-btn">Ep 12</a>
-            <a href="kamisamakiss.html?ep=13" class="ep-selector-btn">Ep 13</a>
+            <div class="ep-selector-btn active-playing" onclick="viewEpisode(1, this)">Ep 1</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(2, this)">Ep 2</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(3, this)">Ep 3</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(4, this)">Ep 4</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(5, this)">Ep 5</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(6, this)">Ep 6</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(7, this)">Ep 7</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(8, this)">Ep 8</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(9, this)">Ep 9</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(10, this)">Ep 10</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(11, this)">Ep 11</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(12, this)">Ep 12</div>
+            <div class="ep-selector-btn" onclick="viewEpisode(13, this)">Ep 13</div>
         </div>
     </div>
 
@@ -132,25 +128,38 @@
         <div class="server">
             <div style="text-align: center; color: white;">
                 Hello! This is still a <b>Test and a New Update</b>.<br> 
-                Episodes links are successfully structured.
+                Epispde are still indevelopment.
             </div>
         </div>
     </div>
     </center>
 
     <script>
+        
         const animeDataMap = {
-            title: "Kamisama Kiss", 
-            synopsis: "Nanami Momozono is homeless after her father runs away due to gambling debts. When she saves a strange man from a dog, he offers her his home as a thank you. However, his home turns out to be a run-down shrine, and Nanami has accidentally become the shrine's new land god alongside a fierce fox familiar named Tomoe."
+            title: "Horimiya: The Missing Pieces",
+            synopsis: "A new anime project that adapts popular side stories that were left out of the main anime series. As the graduation ceremony at Katagiri High School comes to an end, Kyouko Hori, her boyfriend Izumi Miyamura, and their friends begin to look back on their time as students. The moments they shared together may be fleeting, but each one is a colorful piece of their precious memories."
         };
 
+        
         const titleHeader = document.getElementById("anime-title");
         const synopsisBox = document.getElementById("anime-synopsis");
         const tabTitle = document.getElementById("page-title");
 
+        
         titleHeader.textContent = animeDataMap.title;
         synopsisBox.textContent = animeDataMap.synopsis;
         tabTitle.textContent = `${animeDataMap.title} Info Hub - Miraianime`;
+
+        function viewEpisode(episodeNum, buttonElement) {
+           
+            tabTitle.textContent = `${animeDataMap.title} - Episode ${episodeNum} Overview - Miraianime`;
+
+           
+            const structuralButtons = document.querySelectorAll('.ep-selector-btn');
+            structuralButtons.forEach(btn => btn.classList.remove('active-playing'));
+            buttonElement.classList.add('active-playing');
+        }
     </script>
 </body>
 </html>

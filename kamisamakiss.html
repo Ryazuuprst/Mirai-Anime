@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Watch Horimiya Episode 1 Online in HD - Miraianime</title>
+    <link rel="icon" type="image/png" href="./Iroha.png"> 
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="stylesheet.css">
+    <style>
+        
+        .responsive-iframe-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000;
+        }
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+     <nav>
+        <ul class='nav-bar'>
+            <li class='logo'><a href='index.html'><img src='.png'/></a></li>
+            <input type='checkbox' id='check' />
+            <span class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="">Genre</a></li>
+                <li><a href="">Types</a></li>
+                <li><a href="">Updated</a></li>
+                <li><a href="">Feedback</a></li>
+                <li><a href="">Support Center</a></li>
+                <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+            </span>
+            <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+        </ul>
+    </nav>
+    </header>
+
+    <marquee style="color: #4ed9ff; font-weight: bold; background-color: #121f26; padding: 8px 0; font-size: 14px; border-radius: 4px;">
+        This is a new update, we hope you understand if you experience any bug.
+    </marquee> 
+    
+    <h1 id="episode-display-title">Kamisama Kiss - Episode 1</h1>
+
+    
+    <div class="video-player-wrapper">
+        <div class="responsive-iframe-wrapper">
+            <iframe 
+                id="iframePlayer" 
+                class="responsive-iframe" 
+                src="https://vidnest.fun/animepahe/14713/1/sub" 
+                allowfullscreen 
+                scrolling="no"
+                allow="autoplay; encrypted-media">
+            </iframe>
+        </div>
+    </div>
+
+    
+    <div class="episode-list-container">
+        <h3 class="episode-list-title">Select an Episode:</h3>
+        <div class="episode-grid">
+            <div class="ep-selector-btn active-playing" onclick="changeEpisode(1, 'https://vidnest.fun/animepahe/14713/1/sub', this)">Ep 1</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(2, 'https://vidnest.fun/animepahe/14713/2/sub', this)">Ep 2</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(3, 'https://vidnest.fun/animepahe/14713/3/sub', this)">Ep 3</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(4, 'https://vidnest.fun/animepahe/14713/4/sub', this)">Ep 4</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(5, 'https://vidnest.fun/animepahe/14713/5/sub', this)">Ep 5</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(6, 'https://vidnest.fun/animepahe/14713/6/sub', this)">Ep 6</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(7, 'https://vidnest.fun/animepahe/14713/7/sub', this)">Ep 7</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(8, 'https://vidnest.fun/animepahe/14713/8/sub', this)">Ep 8</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(9, 'https://vidnest.fun/animepahe/14713/9/sub', this)">Ep 9</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(10, 'https://vidnest.fun/animepahe/14713/10/sub', this)">Ep 10</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(11, 'https://vidnest.fun/animepahe/14713/11/sub', this)">Ep 11</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(12, 'https://vidnest.fun/animepahe/14713/12/sub', this)">Ep 12</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(13, 'https://vidnest.fun/animepahe/14713/13/sub', this)">Ep 13</div>
+        </div>
+    </div>
+
+    <center>
+    <div class="follow-us">
+        <div class="server">
+            <div style="text-align: center; color: white;">
+                Hello! This is still a <b>Test and a New Update</b>.<br> <b>Episodes</b> are still in development.
+            </div>
+        </div>
+    </div>
+    </center>
+
+    <script>
+       
+        const myPlayer = document.getElementById("iframePlayer");
+        const displayTitle = document.getElementById("episode-display-title");
+        const tabTitle = document.getElementById("page-title");
+
+        function changeEpisode(episodeNum, embedUrlPath, buttonElement) {
+            
+            myPlayer.src = embedUrlPath;
+
+           
+            displayTitle.textContent = `Kamisama Kiss - Episode ${episodeNum}`;
+            tabTitle.textContent = `Wacth Kamisama Kiss! Episode ${episodeNum} Online in HD - Miraianime`;
+
+            
+            const structuralButtons = document.querySelectorAll('.ep-selector-btn');
+            structuralButtons.forEach(btn => btn.classList.remove('active-playing'));
+            buttonElement.classList.add('active-playing');
+        }
+    </script>
+</body>
+</html>
