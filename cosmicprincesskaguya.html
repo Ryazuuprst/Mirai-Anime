@@ -14,7 +14,7 @@
         .responsive-iframe-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; 
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
             background-color: #000;
         }
         .responsive-iframe {
@@ -51,7 +51,7 @@
         This is a new update, we hope you understand if you experience any bug.
     </marquee> 
     
-    <h1 id="episode-display-title">Kamisama Kiss - Episode 1</h1>
+    <h1 id="episode-display-title">Cosmic Princess Kaguya - Episode 1</h1>
 
     
     <div class="video-player-wrapper">
@@ -59,7 +59,7 @@
             <iframe 
                 id="iframePlayer" 
                 class="responsive-iframe" 
-                src="https://vidnest.fun/animepahe/14713/1/sub" 
+                src="https://vidnest.fun/animepahe/201903/1/sub" 
                 allowfullscreen 
                 scrolling="no"
                 allow="autoplay; encrypted-media">
@@ -71,19 +71,8 @@
     <div class="episode-list-container">
         <h3 class="episode-list-title">Select an Episode:</h3>
         <div class="episode-grid">
-            <div class="ep-selector-btn active-playing" onclick="changeEpisode(1, 'https://vidnest.fun/animepahe/14713/1/sub', this)">Ep 1</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(2, 'https://vidnest.fun/animepahe/14713/2/sub', this)">Ep 2</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(3, 'https://vidnest.fun/animepahe/14713/3/sub', this)">Ep 3</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(4, 'https://vidnest.fun/animepahe/14713/4/sub', this)">Ep 4</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(5, 'https://vidnest.fun/animepahe/14713/5/sub', this)">Ep 5</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(6, 'https://vidnest.fun/animepahe/14713/6/sub', this)">Ep 6</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(7, 'https://vidnest.fun/animepahe/14713/7/sub', this)">Ep 7</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(8, 'https://vidnest.fun/animepahe/14713/8/sub', this)">Ep 8</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(9, 'https://vidnest.fun/animepahe/14713/9/sub', this)">Ep 9</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(10, 'https://vidnest.fun/animepahe/14713/10/sub', this)">Ep 10</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(11, 'https://vidnest.fun/animepahe/14713/11/sub', this)">Ep 11</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(12, 'https://vidnest.fun/animepahe/14713/12/sub', this)">Ep 12</div>
-            <div class="ep-selector-btn" onclick="changeEpisode(13, 'https://vidnest.fun/animepahe/14713/13/sub', this)">Ep 13</div>
+            <div class="ep-selector-btn active-playing" onclick="changeEpisode(1, 'https://vidnest.fun/animepahe/201903/1/sub', this)">Ep 1</div>
+            <div class="ep-selector-btn" onclick="changeEpisode(1, 'https://vidnest.fun/animepahe/201903/1/dub', this)">Dub English</div>
         </div>
     </div>
 
@@ -91,7 +80,7 @@
     <div class="follow-us">
         <div class="server">
             <div style="text-align: center; color: white;">
-                Hello! This is still a <b>Test and a New Update</b>.<br> <b>Episodes</b> are still in development.
+                Hello! This is still a <b>New Update</b>.<br> <b>Dub and Sub</b> are still in development.
             </div>
         </div>
     </div>
@@ -108,8 +97,8 @@
             myPlayer.src = embedUrlPath;
 
            
-            displayTitle.textContent = `Kamisama Kiss - Episode ${episodeNum}`;
-            tabTitle.textContent = `Wacth Kamisama Kiss! Episode ${episodeNum} Online in HD - Miraianime`;
+            displayTitle.textContent = `Cosmic Princess Kaguya - Episode ${episodeNum}`;
+            tabTitle.textContent = `Cosmic Princess Kaguya! Episode ${episodeNum} Online in HD - Miraianime`;
 
             
             const structuralButtons = document.querySelectorAll('.ep-selector-btn');
