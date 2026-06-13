@@ -7,42 +7,32 @@
     <title id="page-title">Watch Anime Online - Miraianime</title>
     <link rel="icon" type="image/png" href="./Iroha.png">
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cloudflare.com" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        
         .showcase-banner {
             width: 100%;
-            max-width: 850px;
+            max-width: 800px;
             margin: 20px auto;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            background-color: #1c2e39;
+            border: 1px solid #23495f;
+            padding: 20px;
             box-sizing: border-box;
             text-align: left;
-            position: relative;
-            
-           
-            background: linear-gradient(to right, rgba(20, 34, 43, 0.95), rgba(20, 34, 43, 0.75)), 
-                        url('https://image.tmdb.org/t/p/w500/9I9cM38gecZcwJ0C6r0cwfvtPJP.jpg');
-            background-size: cover;
-            background-position: center top;
         }
         .meta-grid {
             display: flex;
-            gap: 24px;
+            gap: 20px;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 2;
         }
         .poster-box {
-            width: 160px;
-            height: 235px;
+            width: 150px;
+            height: 220px;
             background: #000;
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
         .poster-box img {
             width: 100%;
@@ -54,75 +44,20 @@
             min-width: 250px;
             font-family: sans-serif;
         }
-        .details-box h2 { 
-            margin: 0 0 15px 0; 
-            color: #ffffff; 
-            font-size: 32px;
-            font-weight: bold;
-        }
-        
-       
-        .badge-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        
-        
-        .meta-badge {
-            background-color: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #ffffff;
-            font-size: 13px;
-            padding: 5px 14px;
-            border-radius: 4px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .meta-badge.rating-star {
-            color: #ffc107;
-            background-color: rgba(255, 193, 7, 0.12);
-            border-color: rgba(255, 193, 7, 0.2);
-        }
-
-        
-        .genre-badge {
-            background-color: rgba(229, 9, 20, 0.15);
-            border: 1px solid rgba(229, 9, 20, 0.3);
-            color: #ff5263;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
+        .details-box h2 { margin: 0 0 10px 0; color: #4ed9ff; }
+        .details-box p { margin: 5px 0; color: #a0b2be; font-size: 14px; text-align: left; }
         .synopsis-area {
-            margin-top: 20px;
+            margin-top: 25px;
             font-family: sans-serif;
+            border-top: 1px solid #23495f;
+            padding-top: 15px;
         }
-        .synopsis-area h4 {
-            display: none; 
-        }
-        .synopsis-area p { 
-            color: rgba(255, 255, 255, 0.75); 
-            font-size: 14px; 
-            line-height: 1.6; 
-            text-align: left; 
-            margin: 0 0 25px 0; 
-            max-width: 720px;
-        }
+        .synopsis-area h4 { margin: 0 0 8px 0; color: #4ed9ff; }
+        .synopsis-area p { color: #ffffff; font-size: 14px; line-height: 1.5; text-align: left; margin-bottom: 20px; }
 
-        
         .play-now-container {
             margin-top: 25px;
             text-align: center;
-            position: relative;
-            z-index: 2;
         }
         .play-now-btn {
             display: inline-flex;
@@ -137,7 +72,7 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 14px 50px; 
+            padding: 14px 45px; 
             border-radius: 6px;
             box-shadow: 0 4px 14px rgba(0, 160, 233, 0.4);
             transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
@@ -176,40 +111,31 @@
         This is a new update. We hope you understand if you experience any bug.    
     </marquee> 
 
+    
     <div class="showcase-banner">
         <div class="meta-grid">
             <div class="poster-box">
-                <img src="https://image.tmdb.org/t/p/w500/9I9cM38gecZcwJ0C6r0cwfvtPJP.jpg" alt="Anime Poster">
+                <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105310-2PKUvoaA6fTn.jpg" alt="Anime Poster" alt="Anime Poster">
             </div>
             <div class="details-box">
                 <h2 id="anime-title">Loading Title...</h2>
-                
-                
-                <div class="badge-row">
-                    <span class="meta-badge">2026</span>
-                    <span class="meta-badge">141 mins</span>
-                    <span class="meta-badge rating-star"><i class="fas fa-star"></i> 8.3</span>
-                    <span class="meta-badge">Movie</span>
-                </div>
-
-                
-                <div class="badge-row" style="margin-bottom: 15px;">
-                    <span class="genre-badge">Fantasy</span>
-                    <span class="genre-badge">Music</span>
-                    <span class="genre-badge">Science Fiction</span>
-                </div>
-
-                <div class="synopsis-area">
-                    <p id="anime-synopsis">Fetching synopsis data from your catalog entries, please wait...</p>
-                </div>
+                <p><b>📺 Type:</b> TV Series (No seasons layout)</p>
+                <p><b>📅 Year:</b> 2019</p>
+                <p><b>⭐ Rating:</b> 7.6 / 10</p>
+                <p><b>⏱️ Runtime:</b> 24 episodes</p>
+                <p><b>🎭 Genres:</b> Action, Drama, Sci-fi, Super-Natural</p>
             </div>
         </div>
-        
-        
-        <div class="play-now-container">
-            <a href="cosmicprincesskaguya.html?ep=1" class="play-now-btn">
-                <i class="fas fa-play"></i> Play Now
-            </a>
+        <div class="synopsis-area">
+            <h4>Synopsis:</h4>
+            <p id="anime-synopsis">Fetching synopsis data from your catalog entries, please wait...</p>
+            
+            
+            <div class="play-now-container">
+                <a href="fireforce.html?ep=1" class="play-now-btn">
+                    <i class="fas fa-play"></i> Play Now
+                </a>
+            </div>
         </div>
     </div>
 
@@ -226,8 +152,8 @@
 
     <script>
         const animeDataMap = {
-            title: "Cosmic Princess Kaguya", 
-            synopsis: "Iroha's life gets knocked off its orbit when Kaguya, a carefree runaway from the Moon, moves in and convinces her to perform in a virtual world together."
+            title: "Fire Force", 
+            synopsis: "Year 198 of the Solar Era in Tokyo, special fire brigades are fighting against a phenomenon called spontaneous human combustion where human beings are turned into living infernos called Infernals While the Infernals are first-generation cases of spontaneous human combustion, later generations possess the ability to manipulate flames while retaining human form. Shinra Kusakabe, a youth who gained the nickname Devil"
         };
 
         const titleHeader = document.getElementById("anime-title");
