@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        
         .showcase-banner {
             width: 100%;
             max-width: 850px;
@@ -25,7 +24,7 @@
             
            
             background: linear-gradient(to right, rgba(20, 34, 43, 0.95), rgba(20, 34, 43, 0.75)), 
-                        url('https://image.tmdb.org/t/p/w500/9I9cM38gecZcwJ0C6r0cwfvtPJP.jpg');
+                        url('https://media.themoviedb.org/t/p/w1066_and_h600_face/uuqVT15I6P4ow7NS0stu7aM2X5w.jpg');
             background-size: cover;
             background-position: center top;
         }
@@ -120,9 +119,7 @@
         
         .play-now-container {
             margin-top: 25px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
+            text-align: center; 
         }
         .play-now-btn {
             display: inline-flex;
@@ -133,11 +130,11 @@
             color: #ffffff;
             text-decoration: none;
             font-family: sans-serif;
-            font-size: 16px; 
+            font-size: 16px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 14px 50px; 
+            padding: 14px 45px; 
             border-radius: 6px;
             box-shadow: 0 4px 14px rgba(0, 160, 233, 0.4);
             transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
@@ -149,6 +146,110 @@
         .play-now-btn:active {
             transform: scale(0.97);
         }
+
+        
+
+.video-container-wrapper {
+    margin: 50px auto 30px auto;
+    max-width: 850px;
+    display: flex;
+    justify-content: center;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+
+.video-glass-card {
+    background: rgba(18, 31, 38, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(78, 217, 255, 0.15);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    width: 100%;
+   
+    max-width: 850px; 
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.video-glass-card:hover {
+    border-color: rgba(78, 217, 255, 0.35);
+    box-shadow: 0 15px 40px rgba(78, 217, 255, 0.15);
+}
+
+
+.custom-media-wrapper-adaptive {
+    width: 100%;
+    max-height: 520px; 
+    background-color: #050a0e;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+
+.custom-media-player-adaptive {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 520px;
+    object-fit: contain; 
+}
+
+ 
+.player-info-footer {
+    margin-top: 18px;
+    font-family: sans-serif;
+    text-align: left;
+    max-width: 100%;
+}
+
+.profile-tag {
+    color: #4ed9ff;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 6px;
+}
+
+.profile-tag:hover {
+    text-shadow: 0 0 8px rgba(78, 217, 255, 0.6);
+}
+
+.description-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 10px 0;
+}
+
+.hashtag {
+    color: #4ed9ff;
+    font-weight: 500;
+}
+
+.music-track-row {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 10px;
+}
+
+.music-track-row i {
+    color: #4ed9ff;
+}
+
+
     </style>
 </head>
 <body>
@@ -176,27 +277,28 @@
         This is a new update. We hope you understand if you experience any bug.    
     </marquee> 
 
-    <div class="showcase-banner">
+    
+   <div class="showcase-banner">
         <div class="meta-grid">
             <div class="poster-box">
-                <img src="https://image.tmdb.org/t/p/w500/9I9cM38gecZcwJ0C6r0cwfvtPJP.jpg" alt="Anime Poster">
+                <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103572-cchriAdH95cQ.png" alt="Anime Poster">
             </div>
             <div class="details-box">
                 <h2 id="anime-title">Loading Title...</h2>
                 
                 
                 <div class="badge-row">
-                    <span class="meta-badge">2026</span>
-                    <span class="meta-badge">141 mins</span>
-                    <span class="meta-badge rating-star"><i class="fas fa-star"></i> 8.3</span>
-                    <span class="meta-badge">Movie</span>
+                    <span class="meta-badge">2019</span>
+                    <span class="meta-badge">12 episodes</span>
+                    <span class="meta-badge rating-star"><i class="fas fa-star"></i> 7.6</span>
+                    <span class="meta-badge">TV</span>
                 </div>
 
                 
                 <div class="badge-row" style="margin-bottom: 15px;">
-                    <span class="genre-badge">Fantasy</span>
-                    <span class="genre-badge">Music</span>
-                    <span class="genre-badge">Science Fiction</span>
+                    <span class="genre-badge">Comedy</span>
+                    <span class="genre-badge">Drama</span>
+                    <span class="genre-badge">Slice Of Life</span>
                 </div>
 
                 <div class="synopsis-area">
@@ -212,22 +314,75 @@
             </a>
         </div>
     </div>
+        
+         <center> <div style="text-align: center; color: white;">
+                Hello. Wanna watch an edit before the actual one? <b><br> Well here you go!</b>
+            </div></center>
+       
+<div class="video-container-wrapper">
+    <div class="video-glass-card">
+        
+       <center>
+        <div class="custom-media-wrapper-adaptive">
+            <video id="miraianime-custom-player" autoplay muted loop playsinline controls class="custom-media-player-adaptive">
+                <source src=https://cdn.discordapp.com/attachments/1515410138570424320/1515627632178499644/snaptik_7647265251267792135_v3.mp4?ex=6a2fb1ba&is=6a2e603a&hm=98f343b9a16203fe5421b056d7793a1cdc4e12066086648228d1cc5d8311c3bf&" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        
+        <div class="player-info-footer">
+            <a href="https://www.tiktok.com/@pjfsoul?is_from_webapp=1&sender_device=pc" target="_blank" class="profile-tag">@pjfsoul</a>
+            <p class="description-text">
+               speak to the ring. ~ @alesha 🦋 || ib for nino transition: @viya 🪽|| 
+                <span class="hashtag">#thequintessentialquintuplets</span> <span class="hashtag"> #ninonakano</span> <span class="hashtag"> #mikunakano</span> <span class="hashtag">#mangaanimation</span> <span class="hashtag"> #tqq</span>
+            </p>
+            <div class="music-track-row">
+                <i class="fas fa-music"></i> <span>original sound - pjfsoul</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- JavaScript Audio Activation Trigger Engine -->
+<script>
+    document.addEventListener('click', function activateAudio() {
+        const videoElement = document.getElementById('miraianime-custom-player');
+        if (videoElement) {
+            videoElement.muted = false;
+            videoElement.volume = 1.0;
+        }
+    }, { once: true });
+</script>
+
+
+
+
+
+
+
 
     <center>
     <div class="follow-us">
         <div class="server">
             <div style="text-align: center; color: white;">
                 Hello! This is still a <b>Test and a New Update</b>.<br> 
-                Episodes links are successfully structured.
+               Episodes links are successfully structured.
             </div>
         </div>
     </div>
-    </center>
+   
+
+
+
+</center>
 
     <script>
         const animeDataMap = {
-            title: "Cosmic Princess Kaguya", 
-            synopsis: "Iroha's life gets knocked off its orbit when Kaguya, a carefree runaway from the Moon, moves in and convinces her to perform in a virtual world together."
+            title: "The Quintessential Quintuplets",
+            synopsis: "Uesugi Fuutarou, a high school second-year from a poor family, receives a highly appealing offer to work part-time as a tutor... but his students turn out to be girls from his own class! What's more, they're quintuplets... and all five are beautiful, but happen to be problem students who have borderline grades and hate studying! Looks like his first assignment will be to win all the sisters' trust?! Every day is a wi…"
         };
 
         const titleHeader = document.getElementById("anime-title");
@@ -237,6 +392,13 @@
         titleHeader.textContent = animeDataMap.title;
         synopsisBox.textContent = animeDataMap.synopsis;
         tabTitle.textContent = `${animeDataMap.title} Info Hub - Miraianime`;
+
+        function viewEpisode(episodeNum, buttonElement) {
+            tabTitle.textContent = `${animeDataMap.title} - Episode ${episodeNum} Overview - Miraianime`;
+            const structuralButtons = document.querySelectorAll('.ep-selector-btn');
+            structuralButtons.forEach(btn => btn.classList.remove('active-playing'));
+            buttonElement.classList.add('active-playing');
+        }
     </script>
 </body>
 </html>
