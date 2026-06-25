@@ -18,6 +18,50 @@ body {
     background-color: var(--color2);
     padding: 12px 20px;
 }
+
+
+.nav-search-item {
+    position: relative;     
+    flex-grow: 0;
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;         
+    padding: 0 10px;
+}
+
+
+.search-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+#animeSearchBox {
+    width: 100%;
+    padding: 8px 12px 8px 34px; 
+    background-color: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+
+.search-icon {
+    position: absolute;
+    left: 20px;             
+    z-index: 2;             
+    color: #71717a;
+    pointer-events: none;
+    font-size: 12px;
+}
+
+
+
 .logo img {width: 40px;}
 .menu {display: flex;}
 .menu li {padding-left: 30px;}

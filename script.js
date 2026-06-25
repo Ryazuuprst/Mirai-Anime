@@ -1,35 +1,33 @@
 // ==========================================
-// JOB 1: COMMITTING ENTRIES TO LOCALSTORAGE (UPDATED)
+// JOB 1: COMMITTING ENTRIES TO LOCALSTORAGE
 // ==========================================
 function saveWatchProgress(animeId, animeTitle, epNum, posterUrl) {
     let history = JSON.parse(localStorage.getItem('anime_watch_history')) || [];
     
-    // REPLACED: Filters out old entries matching either the ID OR the Title to prevent duplicates
     history = history.filter(item => {
         const isSameId = String(item.id) === String(animeId);
         const isSameTitle = item.title.trim().toLowerCase() === animeTitle.trim().toLowerCase();
-        return !isSameId && !isSameTitle; // Returns false if either matches, removing it from history
+        return !isSameId && !isSameTitle;
     });
 
-    // Dynamically captures the exact file name the user is on (e.g., "watch.html" or "horimiya.html")
     const currentFileName = window.location.pathname.split("/").pop() || "watch.html";
 
     const watchEntry = {
-        id: String(animeId), // Always save as a string for perfect data consistency
+        id: String(animeId), 
         title: animeTitle,
         episode: epNum,
-        poster: posterUrl,
-        page: currentFileName, // Remembers exactly which page to route back to
+        poster: posterUrl, 
+        page: currentFileName, 
         time: "Just now"
     };
 
     history.unshift(watchEntry);
     localStorage.setItem('anime_watch_history', JSON.stringify(history));
-    console.log(`Database Log: Tracked progress for ${animeTitle} (ID: ${animeId}) on file ${currentFileName}`);
+    console.log(`Database Log: Tracked progress for ${animeTitle}`);
 }
 
 // ==========================================
-// JOB 2: PRINTING GENERATED CARDS ON HOMEPAGE (UPDATED WITH INDEX.HTML IMAGE LOOKUP)
+// JOB 2: PRINTING GENERATED CARDS ON HOMEPAGE
 // ==========================================
 async function displayContinueWatching() {
     const scrollerContainer = document.getElementById('scroller-rowContinueWatching');
@@ -43,7 +41,6 @@ async function displayContinueWatching() {
         return;
     }
 
-    // 1. Fetch index.html in the background and turn it into a searchable document object
     let indexDoc = null;
     try {
         const response = await fetch('index.html');
@@ -51,29 +48,30 @@ async function displayContinueWatching() {
         const parser = new DOMParser();
         indexDoc = parser.parseFromString(htmlText, 'text/html');
     } catch (error) {
-        console.error("Database Log: Could not read index.html for matching poster images.", error);
+        console.error("Database Log: Fallback activated. Could not fetch index.html over network.", error);
     }
 
     history.forEach(item => {
-        // 2. Default to the stored poster url
         let correctPosterImage = item.poster;
 
-        // 3. Scan the fetched index.html data to match the image via the anime title alternative text
         if (indexDoc) {
-            const cleanTitle = item.title.trim().toLowerCase();
-            // Look for any image tag whose 'alt' or attribute contains the anime's title name
-            const foundImg = Array.from(indexDoc.querySelectorAll('img')).find(img => {
-                const altText = img.getAttribute('alt') || '';
-                const titleText = img.getAttribute('title') || '';
-                return altText.trim().toLowerCase().includes(cleanTitle) || titleText.trim().toLowerCase().includes(cleanTitle);
+            const cleanTargetId = String(item.id).trim();
+            const foundAnchor = Array.from(indexDoc.querySelectorAll('a')).find(a => {
+                const href = a.getAttribute('href') || '';
+                return href.includes(`id=${cleanTargetId}`);
             });
 
-            if (foundImg) {
-                correctPosterImage = foundImg.getAttribute('src'); // Grab the correct local image path!
+            if (foundAnchor) {
+                const foundImg = foundAnchor.querySelector('img') || 
+                                 foundAnchor.closest('.anime-card, .card, div')?.querySelector('img') ||
+                                 foundAnchor.parentElement?.querySelector('img');
+
+                if (foundImg && foundImg.getAttribute('src')) {
+                    correctPosterImage = foundImg.getAttribute('src');
+                }
             }
         }
 
-        // 4. Print card using the correctly matched poster image
         const cardHtml = `
             <a href="${item.page}?id=${item.id}&ep=${item.episode}" class="cw-card" style="text-decoration: none; display: block;">
                 <button class="cw-remove-btn" onclick="event.preventDefault(); event.stopPropagation(); cwRemoveEntry('${item.id}', '${item.title.replace(/'/g, "\\'")}', event)" title="Remove">X</button>
@@ -110,7 +108,6 @@ function cwRemoveEntry(animeId, animeTitle, event) {
             card.remove();
             let history = JSON.parse(localStorage.getItem('anime_watch_history')) || [];
             
-            // REPLACED: Clears the item matching either ID or Title on deletion click
             history = history.filter(item => {
                 const isSameId = String(item.id) === String(animeId);
                 const isSameTitle = item.title.trim().toLowerCase() === animeTitle.trim().toLowerCase();
@@ -124,10 +121,49 @@ function cwRemoveEntry(animeId, animeTitle, event) {
 }
 
 // ==========================================
+// JOB 4: NAVIGATION SEARCH BAR LOGIC (BULLETPROOF PARENT ENGINE)
+// ==========================================
+function initAnimeSearch() {
+    const searchBar = document.getElementById('animeSearchBox');
+    if (!searchBar) return;
+
+    searchBar.addEventListener('input', (event) => {
+        const searchText = event.target.value.trim().toLowerCase();
+        
+        // 1. Select cards using the stable layout class string
+        const allAnimeCards = document.querySelectorAll('.anime-card');
+
+        allAnimeCards.forEach(card => {
+            // 2. Identify the true outer wrapper block (the direct layout parent container)
+            const parentBlock = card.parentElement;
+            
+            if (parentBlock) {
+                // 3. Look for the <h4> text tag that sits inside this shared parent block
+                const titleElement = parentBlock.querySelector('h4');
+                
+                if (titleElement) {
+                    const animeTitle = titleElement.textContent.toLowerCase();
+
+                    // 4. Cleanly toggle our visibility override helper class
+                    if (animeTitle.includes(searchText)) {
+                        parentBlock.classList.remove('cw-hide-card'); // Shows item block
+                    } else {
+                        parentBlock.classList.add('cw-hide-card');    // Hides item block completely
+                    }
+                }
+            }
+        });
+    });
+}
+
+
+
+// ==========================================
 // AUTOMATION BOOTLOADER MANAGER
 // ==========================================
-window.addEventListener('load', () => {
+function startAllFeatures() {
     displayContinueWatching();
+    initAnimeSearch();
 
     const urlParams = new URLSearchParams(window.location.search);
     let targetEpisode = urlParams.get('ep');
@@ -148,4 +184,11 @@ window.addEventListener('load', () => {
             }, 250);
         }
     }
-});
+}
+
+// Safely initializes features right away on local file schemes
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startAllFeatures);
+} else {
+    startAllFeatures();
+}

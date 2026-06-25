@@ -10,22 +10,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
 <body>
     <header>
-    <nav>
-        <ul class='nav-bar'>
-            <li class='logo'><a href='index.html'><img src='https://cdn.discordapp.com/attachments/1515410138570424320/1515421908978368522/Mirai-Anime.png?ex=6a3e1b62&is=6a3cc9e2&hm=455eb43ef8ff0493ae1c0a9ef008c705dac504ebb2753d485ea25396e595f0cd&'/></a></li>
-            <input type='checkbox' id='check' />
-            <span class="menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="">Genre</a></li>
-                <li><a href="">Types</a></li>
-                <li><a href="">Updated</a></li>
-                <li><a href="">Feedback</a></li>
-                <li><a href="">Support Center</a></li>
-                <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
-            </span>
-            <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
-        </ul>
-    </nav>
+   <nav>
+    <ul class='nav-bar'>
+        <li class='logo'>
+            <a href='index.html'>
+                <img src='https://cdn.discordapp.com/attachments/1515410138570424320/1515421908978368522/Mirai-Anime.png?ex=6a3e1b62&is=6a3cc9e2&hm=455eb43ef8ff0493ae1c0a9ef008c705dac504ebb2753d485ea25396e595f0cd&'/>
+            </a>
+        </li>
+
+        <!-- NEW: Integrated Search Bar Container -->
+        <li class="nav-search-item">
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="animeSearchBox" placeholder="Search anime series...">
+            </div>
+        </li>
+
+        <input type='checkbox' id='check' />
+        <span class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">Genre</a></li>
+            <li><a href="">Types</a></li>
+            <li><a href="">Updated</a></li>
+            <li><a href="">Feedback</a></li>
+            <li><a href="">Support Center</a></li>
+            <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+        </span>
+        <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+    </ul>
+</nav> 
+
     </header>
 
 <link rel="stylesheet" href="stylesheet.css">
