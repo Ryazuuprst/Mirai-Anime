@@ -1,15 +1,21 @@
 // ==========================================
-// JOB 1: COMMITTING ENTRIES TO LOCALSTORAGE
+// JOB 1: COMMITTING ENTRIES TO LOCALSTORAGE (UPDATED)
 // ==========================================
 function saveWatchProgress(animeId, animeTitle, epNum, posterUrl) {
     let history = JSON.parse(localStorage.getItem('anime_watch_history')) || [];
-    history = history.filter(item => item.id !== animeId);
+    
+    // REPLACED: Filters out old entries matching either the ID OR the Title to prevent duplicates
+    history = history.filter(item => {
+        const isSameId = String(item.id) === String(animeId);
+        const isSameTitle = item.title.trim().toLowerCase() === animeTitle.trim().toLowerCase();
+        return !isSameId && !isSameTitle; // Returns false if either matches, removing it from history
+    });
 
     // Dynamically captures the exact file name the user is on (e.g., "watch.html" or "horimiya.html")
     const currentFileName = window.location.pathname.split("/").pop() || "watch.html";
 
     const watchEntry = {
-        id: animeId,
+        id: String(animeId), // Always save as a string for perfect data consistency
         title: animeTitle,
         episode: epNum,
         poster: posterUrl,
@@ -23,9 +29,9 @@ function saveWatchProgress(animeId, animeTitle, epNum, posterUrl) {
 }
 
 // ==========================================
-// JOB 2: PRINTING GENERATED CARDS ON HOMEPAGE
+// JOB 2: PRINTING GENERATED CARDS ON HOMEPAGE (UPDATED WITH INDEX.HTML IMAGE LOOKUP)
 // ==========================================
-function displayContinueWatching() {
+async function displayContinueWatching() {
     const scrollerContainer = document.getElementById('scroller-rowContinueWatching');
     if (!scrollerContainer) return; 
 
@@ -37,13 +43,42 @@ function displayContinueWatching() {
         return;
     }
 
+    // 1. Fetch index.html in the background and turn it into a searchable document object
+    let indexDoc = null;
+    try {
+        const response = await fetch('index.html');
+        const htmlText = await response.text();
+        const parser = new DOMParser();
+        indexDoc = parser.parseFromString(htmlText, 'text/html');
+    } catch (error) {
+        console.error("Database Log: Could not read index.html for matching poster images.", error);
+    }
+
     history.forEach(item => {
-        // Generates completely unique links routing back to specific custom pages dynamically
+        // 2. Default to the stored poster url
+        let correctPosterImage = item.poster;
+
+        // 3. Scan the fetched index.html data to match the image via the anime title alternative text
+        if (indexDoc) {
+            const cleanTitle = item.title.trim().toLowerCase();
+            // Look for any image tag whose 'alt' or attribute contains the anime's title name
+            const foundImg = Array.from(indexDoc.querySelectorAll('img')).find(img => {
+                const altText = img.getAttribute('alt') || '';
+                const titleText = img.getAttribute('title') || '';
+                return altText.trim().toLowerCase().includes(cleanTitle) || titleText.trim().toLowerCase().includes(cleanTitle);
+            });
+
+            if (foundImg) {
+                correctPosterImage = foundImg.getAttribute('src'); // Grab the correct local image path!
+            }
+        }
+
+        // 4. Print card using the correctly matched poster image
         const cardHtml = `
             <a href="${item.page}?id=${item.id}&ep=${item.episode}" class="cw-card" style="text-decoration: none; display: block;">
-                <button class="cw-remove-btn" onclick="event.preventDefault(); event.stopPropagation(); cwRemoveEntry('${item.id}', event)" title="Remove">X</button>
+                <button class="cw-remove-btn" onclick="event.preventDefault(); event.stopPropagation(); cwRemoveEntry('${item.id}', '${item.title.replace(/'/g, "\\'")}', event)" title="Remove">X</button>
                 <div class="cw-thumb-wrapper">
-                    <img class="cw-card-thumb" src="${item.poster}" alt="${item.title}" loading="lazy" onerror="this.src='https://anilist.co'">
+                    <img class="cw-card-thumb" src="${correctPosterImage}" alt="${item.title}" loading="lazy" onerror="this.src='https://anilist.co'">
                     <div class="cw-progress-bar">
                         <div class="cw-progress-fill" style="width: 45%"></div>
                     </div>
@@ -64,7 +99,7 @@ function displayContinueWatching() {
 // ==========================================
 // JOB 3: REMOVING TRACK TRACE DATA (X KEY)
 // ==========================================
-function cwRemoveEntry(animeId, event) {
+function cwRemoveEntry(animeId, animeTitle, event) {
     const card = event.target.closest('.cw-card');
     if (card) {
         card.style.transition = "all 0.3s ease";
@@ -74,7 +109,14 @@ function cwRemoveEntry(animeId, event) {
         setTimeout(() => {
             card.remove();
             let history = JSON.parse(localStorage.getItem('anime_watch_history')) || [];
-            history = history.filter(item => item.id !== animeId);
+            
+            // REPLACED: Clears the item matching either ID or Title on deletion click
+            history = history.filter(item => {
+                const isSameId = String(item.id) === String(animeId);
+                const isSameTitle = item.title.trim().toLowerCase() === animeTitle.trim().toLowerCase();
+                return !isSameId && !isSameTitle;
+            });
+            
             localStorage.setItem('anime_watch_history', JSON.stringify(history));
             if (history.length === 0) displayContinueWatching();
         }, 300);
@@ -106,37 +148,4 @@ window.addEventListener('load', () => {
             }, 250);
         }
     }
-});
-
-
-
-
-const slider = document.querySelector('.scroller-container');
-let isDown = false;
-let startX;
-let scrollLeft;
-
-slider.addEventListener('mousedown', (e) => {
-    isDown = true;
-    slider.classList.add('active');
-    // Get exact mouse position relative to container
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-});
-
-slider.addEventListener('mouseleave', () => {
-    isDown = false;
-});
-
-slider.addEventListener('mouseup', () => {
-    isDown = false;
-});
-
-slider.addEventListener('mousemove', (e) => {
-    if (!isDown) return; // Stop the function from running if mouse isn't clicked
-    e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    // Multiplied by 2 for faster, smoother scrolling
-    const walk = (x - startX) * 2; 
-    slider.scrollLeft = scrollLeft - walk;
 });
