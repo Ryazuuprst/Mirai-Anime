@@ -10,35 +10,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
 <body>
     <header>
-   <nav>
-    <ul class='nav-bar'>
-        <li class='logo'>
-            <a href='index.html'>
-                <img src='https://cdn.discordapp.com/attachments/1515410138570424320/1515421908978368522/Mirai-Anime.png?ex=6a3e1b62&is=6a3cc9e2&hm=455eb43ef8ff0493ae1c0a9ef008c705dac504ebb2753d485ea25396e595f0cd&'/>
-            </a>
-        </li>
+    <nav>
+            <ul class='nav-bar'>
+                <li class='logo'><a href='index.html'><img src='Mirai-Anime.png'/></a></li>
+                
+                <li class="nav-search-item">
+                    <div class="search-wrap">
+                        
+                        <span class="search-icon" id="animeSearchBtn" style="cursor: pointer;">🔍</span>
+                        <input type="text" id="animeSearchBox" placeholder="Search anime series...">
+                    </div>
+                </li>
 
-        <!-- NEW: Integrated Search Bar Container -->
-        <li class="nav-search-item">
-            <div class="search-wrap">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="animeSearchBox" placeholder="Search anime series...">
-            </div>
-        </li>
-
-        <input type='checkbox' id='check' />
-        <span class="menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="">Genre</a></li>
-            <li><a href="">Types</a></li>
-            <li><a href="">Updated</a></li>
-            <li><a href="">Feedback</a></li>
-            <li><a href="">Support Center</a></li>
-            <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
-        </span>
-        <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
-    </ul>
-</nav> 
+                <input type='checkbox' id='check' />
+                <span class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="">Genre</a></li>
+                    <li><a href="">Types</a></li>
+                    <li><a href="">Updated</a></li>
+                    <li><a href="">Feedback</a></li>
+                    <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+                </span>
+                <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+            </ul>
+        </nav>
 
     </header>
 
@@ -60,256 +55,223 @@
 </div>
 </center>
 <br>
-<br>
- 
-<div class="scroller-container">
-        
-        <div class="scroller" id="scroller-rowContinueWatching"></div>
-    </div>
+<br> 
 
-    
-    <script src="script.js"></script>
-
-
-<div id="animeMainGrid" style="display: flex; flex-direction: row; gap: 10px; overflow-x: auto; overflow-y: hidden; width: 100%; padding: 10px; box-sizing: border-box; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
-        
-    </div>
-
-    
-<div style="display: flex; flex-direction: row; gap: 10px; overflow-x: auto; overflow-y: hidden; width: 100%; padding: 10px; box-sizing: border-box; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
-
-    
-    
-    <div style="width: 164px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
      
-        <a href="Kamisama kiss.html"> <img src="https://image.tmdb.org/t/p/w500/5E7GL8KxpFemEFl3Lv8Fu4RuSwa.jpg" style="width: 109%; height: auto; display: block;"></a>
+    <div id="search-results-section" style="display: none;">
+        <h3 class="section-title" id="search-title">🔍 Search Results</h3>
+        <div id="search-container" class="anime-grid-container"></div>
+    </div>
+
+    
+    <div id="main-homepage-content">
         
-       
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 13</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 13</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">13</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
+        <h3 class="section-title">✨ Recommended For You</h3>
+        <div id="recommended-container" class="anime-grid-container"></div>
+
+        
+        <h3 class="section-title">🔥 Trending Now</h3>
+        <div id="trending-container" class="anime-grid-container"></div>
+    </div>
+
+    <script>
+        
+const homepageQuery = `
+query {
+  recommended: Page (page: 1, perPage: 15) { 
+    media (type: ANIME, sort: SCORE_DESC) {
+      id
+      title { english romaji }
+      coverImage { large }
+      episodes
+      format
+      nextAiringEpisode { episode }
+    }
+  }
+  trending: Page (page: 1, perPage: 45) { 
+    media (type: ANIME, sort: TRENDING_DESC) {
+      id
+      title { english romaji }
+      coverImage { large }
+      episodes
+      format
+      nextAiringEpisode { episode }
+    }
+  }
+}`;
+
+const searchQuery = `
+query ($search: String) {
+  Page (page: 1, perPage: 30) {
+    media (type: ANIME, search: $search) {
+      id
+      title { english romaji }
+      coverImage { large }
+      episodes
+      format
+      nextAiringEpisode { episode }
+    }
+  }
+}`;
+
+
+function generateCardHtml(anime) {
+    const mainTitle = anime.title.english || anime.title.romaji;
+    const posterUrl = anime.coverImage.large;
+    const animeFormat = anime.format || "TV";
+    
+    
+    let totalEpisodes = "?";
+    if (anime.episodes) {
+        totalEpisodes = anime.episodes;
+    } else if (anime.nextAiringEpisode) {
+        totalEpisodes = anime.nextAiringEpisode.episode - 1;
+    }
+
+    return `
+    <div class="card-item-wrapper" style="width: 100%; display: flex; flex-direction: column; box-sizing: border-box;">
+        <div class="card-wrapper" style="width: 100%; background-color: #0b111e; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column;">
+            <a href="anime-details.html?id=${anime.id}" style="display: block; width: 100%;"> 
+                <img src="${posterUrl}" alt="${mainTitle}" style="width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block;">
+            </a>
+            <div class="info-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 6px; background-color: #0b111e; gap: 4px; flex-wrap: wrap;">
+                <div class="badge-group" style="display: flex; gap: 3px; flex-wrap: wrap; min-width: 0;">
+                    <span class="badge" style="background-color: #0066cc; color: white; font-size: 10px; font-weight: bold; padding: 2px 4px; border-radius: 2px; white-space: nowrap;">CC ${totalEpisodes}</span>
+                    <span class="badge" style="background-color: #8b1e1e; color: white; font-size: 10px; font-weight: bold; padding: 2px 4px; border-radius: 2px; white-space: nowrap;">🎙️ ${totalEpisodes}</span>
+                    <span class="badge" style="background-color: #334155; color: white; font-size: 10px; font-weight: bold; padding: 2px 4px; border-radius: 2px; white-space: nowrap;">${totalEpisodes}</span>
+                </div>
+                <span class="type-label" style="font-size: 10px; font-weight: bold; color: #475569; white-space: nowrap; margin-left: auto;">${animeFormat}</span>
+            </div>
         </div>
-    </div> 
+        <h4 style="margin: 8px 0 4px 0; font-size: 12px; font-weight: bold; color: #ffffff; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">
+            <a href="anime-details.html?id=${anime.id}" style="color: inherit; text-decoration: none;" title="${mainTitle}">
+                ${mainTitle}
+            </a>
+        </h4>
+    </div>`;
+}
 
-   
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="Kamisama kiss.html" style="color: inherit; text-decoration: none;">Kamisama Kiss</a>
-    </h4>
-</div>
 
+async function loadHomepageDatabase() {
+    const recommendedContainer = document.getElementById("recommended-container");
+    const trendingContainer = document.getElementById("trending-container");
+    
+    recommendedContainer.innerHTML = "<p style='padding-left: 5px; color: #4ed9ff; width: 100%; grid-column: 1 / -1;'>⏳ Loading recommendations...</p>";
+    trendingContainer.innerHTML = "<p style='padding-left: 5px; color: #4ed9ff; width: 100%; grid-column: 1 / -1;'>⏳ Loading trending database...</p>";
+
+    try {
+        const response = await fetch("https://graphql.anilist.co", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({ query: homepageQuery })
+        });
+
+        if (!response.ok) throw new Error(`API Error: ${response.status}`);
+
+        const jsonResponse = await response.json();
+        
+        const recommendedList = jsonResponse.data.recommended.media;
+        const trendingList = jsonResponse.data.trending.media;
+
+        recommendedContainer.innerHTML = "";
+        trendingContainer.innerHTML = "";
+
+        recommendedList.forEach(anime => {
+            recommendedContainer.insertAdjacentHTML("beforeend", generateCardHtml(anime));
+        });
+
+        trendingList.forEach(anime => {
+            trendingContainer.insertAdjacentHTML("beforeend", generateCardHtml(anime));
+        });
+
+    } catch (error) {
+        const errorTemplate = `<p style="color: #ff3e6c; padding-left: 5px; grid-column: 1 / -1;">Error loading row contents: ${error.message}</p>`;
+        recommendedContainer.innerHTML = errorTemplate;
+        trendingContainer.innerHTML = errorTemplate;
+    }
+}
+
+
+async function executeAnimeSearch(keyword) {
+    const searchSection = document.getElementById("search-results-section");
+    const mainContent = document.getElementById("main-homepage-content");
+    const searchContainer = document.getElementById("search-container");
+    const searchTitle = document.getElementById("search-title");
 
     
-    <div style="width: 160px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="watch.html"> <img src="https://image.tmdb.org/t/p/w500/iSOKGl5KIeOCAtigUDCfFZe2cOi.jpg" style="width: 100%; height: auto; display: block;"></a>
-        
-        
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 13</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 13</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">13</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
-        </div>
-    </div> 
+    if (!keyword || !keyword.trim()) {
+        searchSection.style.display = "none";
+        mainContent.style.display = "block";
+        return;
+    }
 
     
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="watch.html" style="color: inherit; text-decoration: none;">Horimiya</a>
-    </h4>
-</div>
+    mainContent.style.display = "none";
+    searchSection.style.display = "block";
+    searchTitle.textContent = `🔍 Searching for "${keyword}"...`;
+    searchContainer.innerHTML = "<p style='padding-left: 5px; color: #4ed9ff; width: 100%; grid-column: 1 / -1;'>⏳ Scanning anime universe database...</p>";
+
+    try {
+        const response = await fetch("https://graphql.anilist.co", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                query: searchQuery,
+                variables: { search: keyword }
+            })
+        });
+
+        if (!response.ok) throw new Error("Search network pipelines broke down");
+
+        const jsonResult = await response.json();
+        const resultsList = jsonResult.data.Page.media;
+
+        searchContainer.innerHTML = "";
+        searchTitle.textContent = `🔍 Search Results for "${keyword}"`;
+
+        if (!resultsList || resultsList.length === 0) {
+            searchContainer.innerHTML = "<p style='padding-left: 5px; color: #ff3e6c; width: 100%; grid-column: 1 / -1;'>❌ No anime found matching your query terms.</p>";
+            return;
+        }
+
+        resultsList.forEach(anime => {
+            searchContainer.insertAdjacentHTML("beforeend", generateCardHtml(anime));
+        });
+
+    } catch (error) {
+        searchContainer.innerHTML = `<p style="color: #ff3e6c; padding-left: 5px; grid-column: 1 / -1;">Search failure: ${error.message}</p>`;
+    }
+}
 
 
-    
-    <div style="width: 161px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="TTRS.html"> <img src="https://image.tmdb.org/t/p/w500/pzujcdPAoH361NObVrtbA7zACE7.jpg" style="width: 100%; height: auto; display: block;"></a>
-        
-        
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 24</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 24</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">24</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
-        </div>
-    </div> 
+const searchInput = document.getElementById("animeSearchBox");
+const searchButton = document.getElementById("animeSearchBtn");
 
-    
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="TTRS.html" style="color: inherit; text-decoration: none;">That Time I Got Reincarnated as a Slime</a>
-    </h4>
-</div>
+if (searchButton) {
+    searchButton.addEventListener("click", () => {
+        executeAnimeSearch(searchInput.value);
+    });
+}
 
-<!-- Here for next anime -->
-
-<div style="width: 161px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="88046.html"> <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105310-2PKUvoaA6fTn.jpg" style="width: 100%; height: auto; display: block;"></a>
-        
-        
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 24</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 24</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">24</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
-        </div>
-    </div> 
-
-    
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="88046.html" style="color: inherit; text-decoration: none;">Fire Force</a>
-    </h4>
-</div>
+if (searchInput) {
+    searchInput.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+            executeAnimeSearch(searchInput.value);
+        }
+        if (searchInput.value === "") {
+            executeAnimeSearch("");
+        }
+    });
+}
 
 
-<div style="width: 171px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="114236.html"> <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx114236-wfQOWF0Ii3h2.png" style="width: 100%; height: auto; display: block;"></a>
-        
-        
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 24</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 24</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">24</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
-        </div>
-    </div> 
-
-    
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="114236.html" style="color: inherit; text-decoration: none;">Fire Force Season 2</a>
-    </h4>
-</div>
-
-</div>
-
-<div style="display: flex; flex-direction: row; gap: 10px; overflow-x: auto; overflow-y: hidden; width: 100%; padding: 10px; box-sizing: border-box; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
-
-    
-    <div style="width: 157px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="CPK.html"> <img src="https://image.tmdb.org/t/p/w500/9I9cM38gecZcwJ0C6r0cwfvtPJP.jpg" style="width: 99%; height: auto; display: block;"></a>
-        
-       
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 1</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 1</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">1</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">ONA</span>
-        </div>
-    </div> 
-
-   
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="CPK.html" style="color: inherit; text-decoration: none;">Cosmic Princess Kaguya</a>
-    </h4>
-</div> 
-
-
-    
-    <div style="width: 155px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="Horimiya.html"> <img src="https://image.tmdb.org/t/p/w500/aEJVHbXaC94y6thJ3nA6lBBnHjs.jpg" style="width: 100%; height: auto; display: block;"></a>
-        
-        
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 13</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 13</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">13</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
-        </div>
-    </div> 
-
-    
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="Horimiya.html" style="color: inherit; text-decoration: none;">Horimiya: The Missing Pieces</a>
-    </h4>
-</div>
-
-<div style="width: 155px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="169580.html"> <img src="https://image.tmdb.org/t/p/w500/hJRG85Va7Vz0t0AM1TLiM3PN6tC.jpg" style="width: 100%; height: auto; display: block;"></a>
-        
-        
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 12</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">12</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
-        </div>
-    </div> 
-
-    
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="169580.html" style="color: inherit; text-decoration: none;">I Made Friends with the Second Prettiest Girl in My Class</a>
-    </h4>
-</div>
-
-<div style="width: 165px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="209867.html"> <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154587-qQTzQnEJJ3oB.jpg" style="width: 100%; height: auto; display: block;"></a>
-        
-        
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 28</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 28</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">28</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
-        </div>
-    </div> 
-
-    
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="209867.html" style="color: inherit; text-decoration: none;">Frieren: Beyond Journey’s End</a>
-    </h4>
-</div>
-
-<!-- Here for next anime -->
-
-<div style="width: 165px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="182255.html"> <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx182255-butzrqd4I0aC.jpg" style="width: 100%; height: auto; display: block;"></a>
-        
-        
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 10</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 10</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">10</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
-        </div>
-    </div> 
-
-    
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="182255.html" style="color: inherit; text-decoration: none;">Frieren: Beyond Journey’s End Season 2</a>
-    </h4>
-</div>
-
-<div style="width: 156px; flex-shrink: 0; text-align: left; box-sizing: border-box;">
-    <div class="anime-card" style="position: relative; overflow: hidden; border-radius: 4px; background-color: #122038; padding: 0 0 8px 0;">
-        <a href="103572.html"> <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103572-cchriAdH95cQ.png" style="width: 100%; height: auto; display: block;"></a>
-        
-        
-        <div style="display: flex; gap: 3px; margin: 10px 4px 0 4px; font-size: 10px; font-weight: bold; color: #a0aec0; align-items: center; justify-content: flex-start;">
-            <span style="background-color: #0a749d; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">CC 12</span>
-            <span style="background-color: #9d2a2a; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">🎙️ 12</span>
-            <span style="background-color: #2d3748; color: white; padding: 2px 3px; border-radius: 2px; flex-shrink: 0;">12</span>
-            <span style="margin-left: auto; color:#7f8fa4; flex-shrink: 0; font-size: 10px;">TV</span>
-        </div>
-    </div> 
-
-    
-    <h4 style="margin: 6px 0 0 0; font-size: 11px; font-weight: bold; color: white; font-family: sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="103572.html" style="color: inherit; text-decoration: none;">The Quintessential Quintuplets</a>
-    </h4>
-</div>
-
-
-</div>
-        
-<!-- Here for next layer anime -->
-
-
+loadHomepageDatabase();
+    </script>
 </body>
 </html>

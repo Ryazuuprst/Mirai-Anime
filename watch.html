@@ -4,333 +4,222 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Watch Anime Online - Miraianime</title>
+    <title id="watch-page-title">Home - Mirai - Watch Anime Online, Free Anime Streaming</title>
     <link rel="icon" type="image/png" href="./Iroha.png">
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="stylesheet.css">
+    
     <style>
-        .showcase-banner {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            background-color: #1c2e39;
-            border: 1px solid #23495f;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: left;
+        body { 
+            background-color: #121f26; 
+            color: white; 
+            font-family: sans-serif; 
+            margin: 0; 
+            padding: 0; 
         }
-        .meta-grid {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .poster-box {
-            width: 150px;
-            height: 220px;
-            background: #000;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        .poster-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .details-box {
-            flex: 1;
-            min-width: 250px;
-            font-family: sans-serif;
-        }
-        .details-box h2 { margin: 0 0 10px 0; color: #4ed9ff; }
-        .details-box p { margin: 5px 0; color: #a0b2be; font-size: 14px; text-align: left; }
-        .synopsis-area {
-            margin-top: 25px;
-            font-family: sans-serif;
-            border-top: 1px solid #23495f;
-            padding-top: 15px;
-        }
-        .synopsis-area h4 { margin: 0 0 8px 0; color: #4ed9ff; }
-        .synopsis-area p { color: #ffffff; font-size: 14px; line-height: 1.5; text-align: left; margin-bottom: 20px; }
-
         
-        .play-now-container {
-            margin-top: 25px;
+        
+        .watch-wrapper { 
+            max-width: 1000px; 
+            margin: 20px auto; 
+            padding: 0 20px; 
+            box-sizing: border-box; 
+        }
+        
+        .player-container { 
+            width: 100%; 
+            aspect-ratio: 16 / 9; 
+            background-color: #000000; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        }
+        
+        .player-container iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
+        
+        
+        .server-section { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-top: 15px; 
+            padding: 10px 14px; 
+            background-color: #172b36; 
+            border-radius: 6px; 
+            border: 1px solid rgba(255,255,255,0.03); 
+            flex-wrap: wrap; 
+        }
+        
+        .server-label { 
+            font-size: 13px; 
+            font-weight: bold; 
+            color: #64748b; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        
+        .server-btn { 
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+            color: #cbd5e1; 
+            padding: 6px 16px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
+        
+        .server-btn:hover { 
+            background-color: #1e293b; 
+            border-color: #00a0e9; 
+            color: #ffffff; 
+        }
+        
+        .server-btn.active { 
+            background-color: #00a0e9; 
+            border-color: #00a0e9; 
+            color: white; 
+            box-shadow: 0 0 10px rgba(0,160,233,0.3); 
+        }
+
+        .anime-meta { 
+            margin: 25px 0 20px 0; 
+        }
+        
+        .anime-meta h2 { 
+            margin: 0 0 5px 0; 
+            color: #4ed9ff; 
+            font-size: 24px; 
+        }
+        
+        .anime-meta p { 
+            color: #64748b; 
+            margin: 0; 
+            font-size: 14px; 
+        }
+        
+        
+        .episode-section { 
+            margin-top: 25px; 
+            background-color: #172b36; 
+            padding: 20px; 
+            border-radius: 8px; 
+            border: 1px solid rgba(255,255,255,0.05); 
+        }
+        
+        .episode-section h3 { 
+            margin-top: 0; 
+            color: #ffffff; 
+            font-size: 17px; 
+            border-bottom: 1px solid #1e293b; 
+            padding-bottom: 10px; 
+        }
+        
+        .episode-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); 
+            gap: 10px; 
+            margin-top: 15px; 
+        }
+        
+        .ep-btn { 
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+            color: white; 
+            padding: 10px 0; 
             text-align: center; 
+            border-radius: 4px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: all 0.2s; 
         }
-        .play-now-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background-color: #00a0e9;
-            color: #ffffff;
-            text-decoration: none;
-            font-family: sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 14px 45px; 
-            border-radius: 6px;
-            box-shadow: 0 4px 14px rgba(0, 160, 233, 0.4);
-            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+        
+        .ep-btn:hover { 
+            background-color: #1e293b; 
+            border-color: #00a0e9; 
+            transform: translateY(-1px); 
         }
-        .play-now-btn:hover {
-            background-color: #008ecf;
-            box-shadow: 0 6px 18px rgba(0, 160, 233, 0.6);
+        
+        .ep-btn.active { 
+            background-color: #00a0e9; 
+            border-color: #00a0e9; 
+            pointer-events: none; 
         }
-        .play-now-btn:active {
-            transform: scale(0.97);
-        }
-
-              
-.video-container-wrapper {
-    margin: 50px auto 30px auto;
-    max-width: 850px;
-    display: flex;
-    justify-content: center;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-
-.video-glass-card {
-    background: rgba(18, 31, 38, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(78, 217, 255, 0.15);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-    width: 100%;
-   
-    max-width: 850px; 
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-}
-
-.video-glass-card:hover {
-    border-color: rgba(78, 217, 255, 0.35);
-    box-shadow: 0 15px 40px rgba(78, 217, 255, 0.15);
-}
-
-
-.custom-media-wrapper-adaptive {
-    width: 100%;
-    max-height: 520px; 
-    background-color: #050a0e;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-}
-
-
-.custom-media-player-adaptive {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 520px;
-    object-fit: contain; 
-}
-
- 
-.player-info-footer {
-    margin-top: 18px;
-    font-family: sans-serif;
-    text-align: left;
-    max-width: 100%;
-}
-
-.profile-tag {
-    color: #4ed9ff;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 15px;
-    display: inline-block;
-    margin-bottom: 6px;
-}
-
-.profile-tag:hover {
-    text-shadow: 0 0 8px rgba(78, 217, 255, 0.6);
-}
-
-.description-text {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 13px;
-    line-height: 1.5;
-    margin: 0 0 10px 0;
-}
-
-.hashtag {
-    color: #4ed9ff;
-    font-weight: 500;
-}
-
-.music-track-row {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 10px;
-}
-
-.music-track-row i {
-    color: #4ed9ff;
-}
-
-
     </style>
 </head>
 <body>
     <header>
-     <nav>
-        <ul class='nav-bar'>
-            <li class='logo'><a href='index.html'><img src='https://cdn.discordapp.com/attachments/1515410138570424320/1515421908978368522/Mirai-Anime.png?ex=6a3e1b62&is=6a3cc9e2&hm=455eb43ef8ff0493ae1c0a9ef008c705dac504ebb2753d485ea25396e595f0cd&'/></a></li>
-            <input type='checkbox' id='check' />
-            <span class="menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="">Genre</a></li>
-                <li><a href="">Types</a></li>
-                <li><a href="">Updated</a></li>
-                <li><a href="">Feedback</a></li>
-                <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
-            </span>
-            <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
-        </ul>
-    </nav>
+        <nav>
+            <ul class='nav-bar'>
+                <li class='logo'><a href='index.html'><img src='Mirai-Anime.png'/></a></li>
+                
+                <li class="nav-search-item">
+                    <div class="search-wrap">
+                        <span class="search-icon" id="animeSearchBtn" style="cursor: pointer;">🔍</span>
+                        <input type="text" id="animeSearchBox" placeholder="Search anime series...">
+                    </div>
+                </li>
+
+                <input type='checkbox' id='check' />
+                <span class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="">Genre</a></li>
+                    <li><a href="">Types</a></li>
+                    <li><a href="">Updated</a></li>
+                    <li><a href="">Feedback</a></li>
+                    <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+                </span>
+                <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+            </ul>
+        </nav>
     </header>
 
-<link rel="stylesheet" href="stylesheet.css">
-
     <marquee style="color: #4ed9ff; font-weight: bold; background-color: #121f26; padding: 8px 0; font-size: 14px; border-radius: 4px;">
-        This is a new update. We hope you understand if you experience any bug.    
-    </marquee> 
+        Welcome to the trial launch of this website! Please leave your thoughts about how to upgrade this website. <b>Some features may not be working as they're still not done.</b>
+    </marquee>
 
     
-    <div class="showcase-banner">
-        <div class="meta-grid">
-            <div class="poster-box">
-                <img src="https://image.tmdb.org/t/p/w500/iSOKGl5KIeOCAtigUDCfFZe2cOi.jpg" alt="Anime Poster">
-            </div>
-            <div class="details-box">
-                <h2 id="anime-title">Loading Title...</h2>
-                <p><b>📺 Type:</b> TV Series (No seasons layout)</p>
-                <p><b>📅 Year:</b> 2021</p>
-                <p><b>⭐ Rating:</b> 8.2 / 10</p>
-                <p><b>⏱️ Runtime:</b> 24 mins per ep</p>
-                <p><b>🎭 Genres:</b> Comedy, Romance, School, Shounen</p>
-            </div>
-        </div>
-        <div class="synopsis-area">
-            <h4>Synopsis:</h4>
-            <p id="anime-synopsis">Fetching synopsis data from your catalog entries, please wait...</p>
-            
-           
-            <div class="play-now-container">
-                <a href="ep-1.html?ep=1" class="play-now-btn">
-                    <i class="fas fa-play"></i> Play Now
-                </a>
-                <br>
-                <br>
-                 <a href="ep-1dub.html?ep=1" class="play-now-btn">
-                    <i class="fas fa-play"></i> Play Dub Now
-                </a>
-            </div>
-        </div>
-    </div>
+    <div class="watch-wrapper">
         
-        <center> <div style="text-align: center; color: white;">
-                Hello. Wanna watch an edit before the actual one? <b><br> Well here you go!</b>
-            </div></center>
+        <div class="player-container">
+            <iframe id="video-iframe" src="" allowfullscreen scrolling="no"></iframe>
+        </div>
+
+        
+        <div class="server-section">
+            <span class="server-label"><i class="fas fa-server"></i> Switch Mirror:</span>
+            <button class="server-btn active" id="btn-server1" onclick="changeActiveServer(1)"><i class="fas fa-closed-captioning"></i> MegaPlay (Sub)</button>
+            <button class="server-btn" id="btn-server2" onclick="changeActiveServer(2)"><i class="fas fa-microphone"></i> MegaPlay (Dub)</button>
+            <button class="server-btn" id="btn-server3" onclick="changeActiveServer(3)"><i class="fas fa-bolt"></i> Server 3 (Anikoto)</button>
+        </div>
+
        
-<div class="video-container-wrapper">
-    <div class="video-glass-card">
-        
+        <div class="anime-meta">
+            <h2 id="watch-anime-title">Loading Stream Data...</h2>
+            <p id="watch-episode-indicator">Now Playing: Episode 1</p>
+        </div>
+
        
-        <div class="custom-media-wrapper-adaptive">
-            <video id="miraianime-custom-player" autoplay muted loop playsinline controls class="custom-media-player-adaptive">
-                <source src="https://cdn.discordapp.com/attachments/1515410138570424320/1515761011037048983/snaptik_7648690334456745229_v3.mp4?ex=6a3e05b2&is=6a3cb432&hm=3516641d46f46eb07b5753721c98540a2a2a4dd0510211973ca82e53213bebc3&" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        
-        
-        <div class="player-info-footer">
-            <a href="https://www.tiktok.com/@zoxin_1?is_from_webapp=1&sender_device=pc" target="_blank" class="profile-tag">@zoxin_1</a>
-            <p class="description-text">
-                Best romance anime of all time 🤧.. THANKs TO MY GOAT FOR HELPING ME @🍙!! 🥹🥹 (I love miyamura’s speech ❤️)
-                <span class="hashtag">#hori</span> <span class="hashtag">#horimiya</span> <span class="hashtag">#miyamura</span> <span class="hashtag">#love</span> <span class="hashtag">#fyp</span>
-            </p>
-            <div class="music-track-row">
-                <i class="fas fa-music"></i> <span>original sound - Zøxın</span>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<!-- ⚙️ JavaScript Audio Activation Trigger Engine -->
-<script>
-    document.addEventListener('click', function activateAudio() {
-        const videoElement = document.getElementById('miraianime-custom-player');
-        if (videoElement) {
-            videoElement.muted = false;
-            videoElement.volume = 1.0;
-        }
-    }, { once: true });
-</script>
-
-
-
-
-
-
-
-
-    <center>
-    <div class="follow-us">
-        <div class="server">
-            <div style="text-align: center; color: white;">
-                Hello! This is still a <b>Test and a New Update</b>.<br> 
-               Episodes links are successfully structured.
+        <div class="episode-section">
+            <h3 id="episodes-count-header">Episodes List</h3>
+            <div class="episode-grid" id="episode-buttons-grid">
+                <!-- Clickable buttons populate instantly via watch-player.js -->
             </div>
         </div>
     </div>
-   
 
-
-
-</center>
-
-    <script>
-        const animeDataMap = {
-            title: "Horimiya",
-            synopsis: "A secret life is the one thing they have in common. At school, Hori is a prim and perfect social butterfly, but the truth is she's a brash homebody. Meanwhile, under a gloomy facade, Miyamura hides a gentle heart along with piercings and tattoos. In a chance meeting, they both reveal their hidden sides."
-        };
-
-        const titleHeader = document.getElementById("anime-title");
-        const synopsisBox = document.getElementById("anime-synopsis");
-        const tabTitle = document.getElementById("page-title");
-
-        titleHeader.textContent = animeDataMap.title;
-        synopsisBox.textContent = animeDataMap.synopsis;
-        tabTitle.textContent = `${animeDataMap.title} Info Hub - Miraianime`;
-
-        function viewEpisode(episodeNum, buttonElement) {
-            tabTitle.textContent = `${animeDataMap.title} - Episode ${episodeNum} Overview - Miraianime`;
-            const structuralButtons = document.querySelectorAll('.ep-selector-btn');
-            structuralButtons.forEach(btn => btn.classList.remove('active-playing'));
-            buttonElement.classList.add('active-playing');
-        }
-    </script>
+    
+    <script src="watch-player.js"></script>
 </body>
 </html>

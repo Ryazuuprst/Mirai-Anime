@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Watch Anime Online - Miraianime</title>
+    <link rel="icon" type="image/png" href="./Iroha.png">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./stylesheet.css">
+</head>
+<body>
+    <header>
+     <nav>
+        <ul class='nav-bar'>
+            <li class='logo'><a href='index.html'><img src='Mirai-Anime.png'/></a></li>
+            <input type='checkbox' id='check' />
+            <span class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="">Genre</a></li>
+                <li><a href="">Types</a></li>
+                <li><a href="">Updated</a></li>
+                <li><a href="">Feedback</a></li>
+                <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+            </span>
+            <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+        </ul>
+    </nav>
+    </header>
+
+    <marquee style="color: #4ed9ff; font-weight: bold; background-color: #121f26; padding: 8px 0; font-size: 14px; border-radius: 4px;">
+        This is a new update. We hope you understand if you experience any bug.    
+    </marquee> 
+
+    <div class="showcase-banner">
+        <div class="meta-grid">
+            <div class="poster-box">
+                <!-- ID Holder para sa Dynamic Poster Image -->
+                <img id="anime-poster" src="" alt="Anime Poster">
+            </div>
+            <div class="details-box">
+                <!-- ID Holder para sa Dynamic Title -->
+                <h2 id="anime-title">Loading Title...</h2>
+                
+                <!-- Row para sa Year, Episodes, Rating, at Format -->
+                <div class="badge-row" id="meta-badges-row">
+                    <span class="meta-badge" id="anime-year">...</span>
+                    <span class="meta-badge" id="anime-episodes">...</span>
+                    <span class="meta-badge rating-star" id="anime-rating"><i class="fas fa-star"></i> ...</span>
+                    <span class="meta-badge" id="anime-format">...</span>
+                </div>
+
+                <!-- ID Holder para sa Dynamic Genre List -->
+                <div class="badge-row" id="genres-badges-row" style="margin-bottom: 15px;">
+                    <!-- Ang mga genre badges ay kusang papasok dito gamit ang JS -->
+                </div>
+
+                <!-- ID Holder para sa Dynamic Synopsis -->
+                <div class="synopsis-area">
+                    <p id="anime-synopsis">Fetching synopsis data from your catalog entries, please wait...</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="play-now-container">
+            <!-- Dynamic Watch Link (Nilagyan ng placeholder hash muna) -->
+            <a href="#" id="play-now-btn" class="play-now-btn">
+                <i class="fas fa-play"></i> Play Now
+            </a>
+        </div>
+    </div>
+
+    <center>
+    <div class="follow-us">
+        <div class="server">
+            <div style="text-align: center; color: white;">
+                Hello! This is still a <b>Test and a New Update</b>.<br> 
+                Episodes links are successfully structured.
+            </div>
+        </div>
+    </div>
+    </center>
+
+    
+    <script>
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const animeId = urlParams.get('id');
+
+        
+        const singleAnimeQuery = `
+        query ($id: Int) {
+          Media (id: $id, type: ANIME) {
+            title {
+              english
+              romaji
+            }
+            coverImage {
+              large
+            }
+            description
+            episodes
+            seasonYear
+            format
+            genres
+            averageScore
+          }
+        }`;
+
+        async function loadDynamicTemplate() {
+            
+            if (!animeId) {
+                document.getElementById("anime-title").textContent = "Error: No ID Selected";
+                document.getElementById("anime-synopsis").textContent = "Please go back to the homepage and select an anime.";
+                return;
+            }
+
+            try {
+                const response = await fetch("https://graphql.anilist.co", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({ 
+                        query: singleAnimeQuery,
+                        variables: { id: parseInt(animeId) }
+                    })
+                });
+
+                if (!response.ok) throw new Error("API Connection Failed");
+
+                const jsonResponse = await response.json();
+                const animeData = jsonResponse.data.Media;
+
+                
+                const mainTitle = animeData.title.english || animeData.title.romaji;
+                const posterUrl = animeData.coverImage.large;
+                const totalEpisodes = animeData.episodes ? `${animeData.episodes} episodes` : "? episodes";
+                const launchYear = animeData.seasonYear || "N/A";
+                const formatLabel = animeData.format || "TV";
+                const calculatedScore = animeData.averageScore ? (animeData.averageScore / 10).toFixed(1) : "N/A";
+                
+               
+                const dynamicSynopsis = animeData.description || "No synopsis available.";
+
+                
+                document.getElementById("page-title").textContent = `${mainTitle} - Miraianime`;
+                document.getElementById("anime-title").textContent = mainTitle;
+                document.getElementById("anime-poster").src = posterUrl;
+                document.getElementById("anime-poster").alt = mainTitle;
+                document.getElementById("anime-year").textContent = launchYear;
+                document.getElementById("anime-episodes").textContent = totalEpisodes;
+                document.getElementById("anime-format").textContent = formatLabel;
+                document.getElementById("anime-rating").innerHTML = `<i class="fas fa-star"></i> ${calculatedScore}`;
+                document.getElementById("anime-synopsis").innerHTML = dynamicSynopsis;
+
+                
+                const genresRow = document.getElementById("genres-badges-row");
+                genresRow.innerHTML = ""; // Linisin ang static placeholder
+                animeData.genres.forEach(genre => {
+                    const spanElement = document.createElement("span");
+                    spanElement.className = "genre-badge";
+                    spanElement.textContent = genre;
+                    genresRow.appendChild(spanElement);
+                });
+
+                
+                document.getElementById("play-now-btn").href = `watch.html?id=${animeId}`;
+
+            } catch (error) {
+                document.getElementById("anime-title").textContent = "Failed to load database";
+                document.getElementById("anime-synopsis").textContent = error.message;
+            }
+        }
+
+        
+        loadDynamicTemplate();
+    </script>
+</body>
+</html>
