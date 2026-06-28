@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Watch Anime Online - Miraianime</title>
+    <title id="page-title">Watch Frieren: Beyond Journey’s End Season 2 Online - Miraianime</title>
     <link rel="icon" type="image/png" href="./Iroha.png">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -87,107 +87,149 @@
         }
 
               
+
+.tiktok-feed-scroller {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    background-color: #121f26;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.tiktok-feed-scroller::-webkit-scrollbar {
+    display: none;
+}
+
 .video-container-wrapper {
-    margin: 50px auto 30px auto;
-    max-width: 850px;
+    width: 100%;
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     display: flex;
     justify-content: center;
-    padding: 0 15px;
+    align-items: center;
+    position: relative;
     box-sizing: border-box;
+    padding: 20px;
 }
 
 
 .video-glass-card {
-    background: rgba(18, 31, 38, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(78, 217, 255, 0.15);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
     width: 100%;
-   
-    max-width: 850px; 
+    
+    max-width: 420px;                   
+    max-height: 92vh;                   
+    
+    background-color: #1c2e39;
+    border: 1px solid rgba(78, 217, 255, 0.4);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7), 
+                0 0 15px rgba(78, 217, 255, 0.2);
+    
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    padding: 15px;
     box-sizing: border-box;
-    transition: all 0.3s ease;
+    
+    
+    transition: max-width 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+    cursor: pointer;
 }
 
+
 .video-glass-card:hover {
-    border-color: rgba(78, 217, 255, 0.35);
-    box-shadow: 0 15px 40px rgba(78, 217, 255, 0.15);
+    border-color: #4ed9ff;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.8), 
+                0 0 30px rgba(78, 217, 255, 0.6), 
+                inset 0 0 15px rgba(78, 217, 255, 0.2);
+}
+.video-glass-card:active {
+    transform: scale(0.99);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.9), 
+                0 0 45px rgba(78, 217, 255, 0.9), 
+                inset 0 0 25px rgba(78, 217, 255, 0.4);
+}
+
+
+
+
+.video-glass-card:has(.custom-media-player-adaptive[style*="aspect-ratio"]),
+.video-glass-card:has(video) {
+    max-width: 700px; 
+}
+
+
+@media (orientation: portrait) {
+    .video-glass-card {
+        max-width: 420px; 
+    }
 }
 
 
 .custom-media-wrapper-adaptive {
     width: 100%;
-    max-height: 520px; 
-    background-color: #050a0e;
-    border-radius: 10px;
+    background-color: #000000;
+    border-radius: 8px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    flex: 1; 
 }
-
 
 .custom-media-player-adaptive {
-    width: auto;
+    width: 100%;
     height: auto;
-    max-width: 100%;
-    max-height: 520px;
-    object-fit: contain; 
+    max-height: 55vh; 
+    object-fit: contain;
+    display: block;
 }
 
- 
+
 .player-info-footer {
-    margin-top: 18px;
+    margin-top: 15px;
     font-family: sans-serif;
     text-align: left;
-    max-width: 100%;
+    width: 100%;
 }
-
 .profile-tag {
-    color: #4ed9ff;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 15px;
     display: inline-block;
+    color: #4ed9ff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
     margin-bottom: 6px;
+    text-shadow: 0 0 8px rgba(78, 217, 255, 0.4);
+    transition: text-shadow 0.2s ease;
 }
-
 .profile-tag:hover {
-    text-shadow: 0 0 8px rgba(78, 217, 255, 0.6);
+    text-decoration: underline;
+    text-shadow: 0 0 15px rgba(78, 217, 255, 1);
 }
-
 .description-text {
-    color: rgba(255, 255, 255, 0.9);
+    color: #ffffff;
     font-size: 13px;
     line-height: 1.5;
-    margin: 0 0 10px 0;
+    margin: 4px 0;
 }
-
 .hashtag {
     color: #4ed9ff;
     font-weight: 500;
+    text-shadow: 0 0 6px rgba(78, 217, 255, 0.4);
 }
-
 .music-track-row {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 12px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 10px;
+    gap: 8px;
+    color: #a0b2be;
+    font-size: 12px;
+    margin-top: 8px;
 }
-
-.music-track-row i {
-    color: #4ed9ff;
-}
-
-
     </style>
 </head>
 <body>
@@ -253,23 +295,49 @@
                 Hello. Wanna watch an edit before the actual one? <b><br> Well here you go!</b>
             </div></center>
        
+
+<div class="tiktok-feed-scroller">
+
+    
+    <div class="video-container-wrapper">
+        <div class="video-glass-card">
+            <div class="custom-media-wrapper-adaptive">
+                <video id="miraianime-custom-player-1" loop playsinline controls class="custom-media-player-adaptive">
+                    <source src="https://cdn.discordapp.com/attachments/1515410138570424320/1515410457480007873/snaptik_7629022296933403926_v3.mp4?ex=6a400af8&is=6a3eb978&hm=199ca55a9aeb5b08028f5a70d61c95b931026cdecd88205b4ebabc7be8268431&" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="player-info-footer">
+                <a href="https://www.tiktok.com/@.y1onz" target="_blank" class="profile-tag">@.y1onz</a>
+                <p class="description-text">
+                   "shall we go, then?" it's literally her line|
+                    <span class="hashtag">#Anime</span> <span class="hashtag">#frierenbeyondjourneysend</span> <span class="hashtag">#animeedit</span>
+                </p>
+                <div class="music-track-row">
+                    <i class="fas fa-music"></i> <span>original sound - .y1onz</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
 <div class="video-container-wrapper">
     <div class="video-glass-card">
         
-       
+        
         <div class="custom-media-wrapper-adaptive">
-            <video id="miraianime-custom-player" autoplay muted loop playsinline controls class="custom-media-player-adaptive">
-                <source src="https://cdn.discordapp.com/attachments/1515410138570424320/1515410457480007873/snaptik_7629022296933403926_v3.mp4?ex=6a3e10b8&is=6a3cbf38&hm=522eff8c337f236e03bb11d4bcfc18b31a49885a66f9307ab71461bc5a618cc0&" type="video/mp4">
+            <video id="miraianime-custom-player-1" loop playsinline controls class="custom-media-player-adaptive">
+                <source src="https://cdn.discordapp.com/attachments/1515410138570424320/1519693120525041876/ssstik.io_viictuuri__1782393451812.mp4?ex=6a3f24c2&is=6a3dd342&hm=2905deb1355f868ccde1967c455d4ff0847b05d03d7a9ac8f7f1c0471534e457&" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
         
-        
+       
         <div class="player-info-footer">
-            <a href="https://www.tiktok.com/@.y1onz?is_from_webapp=1&sender_device=pc" target="_blank" class="profile-tag">@.y1onz</a>
+            <a href="https://www.tiktok.com/@.y1onz" target="_blank" class="profile-tag">@.y1onz</a>
             <p class="description-text">
                "shall we go, then?" it's literally her line|
-                <span class="hashtag">#Anime</span> <span class="hashtag">#frierenbeyondjourneysend</span> <span class="hashtag">#animeedit</span> <span class="hashtag">#sousounofrieren</span>  <span class="hashtag">#frierenedit</span>
+                <span class="hashtag">#Anime</span> <span class="hashtag">#frierenbeyondjourneysend</span> <span class="hashtag">#animeedit</span>
             </p>
             <div class="music-track-row">
                 <i class="fas fa-music"></i> <span>original sound - .y1onz</span>
@@ -279,7 +347,15 @@
     </div>
 </div>
 
-<!-- ⚙️ JavaScript Audio Activation Trigger Engine -->
+
+
+</div>
+
+
+
+
+
+
 <script>
     document.addEventListener('click', function activateAudio() {
         const videoElement = document.getElementById('miraianime-custom-player');
@@ -288,13 +364,8 @@
             videoElement.volume = 1.0;
         }
     }, { once: true });
+
 </script>
-
-
-
-
-
-
 
 
     <center>
@@ -333,5 +404,104 @@
             buttonElement.classList.add('active-playing');
         }
     </script>
+   <script>
+    
+    const videoScrollerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target.querySelector('video');
+            if (!video) return;
+
+            if (entry.isIntersecting) {
+                
+                video.play().catch(error => console.log("Audio activation requires a user gesture interaction click tracking click link first."));
+            } else {
+                
+                video.pause();
+                video.currentTime = 0; 
+            }
+        });
+    }, {
+        threshold: 0.6 
+    });
+
+    
+    document.querySelectorAll('.video-container-wrapper').forEach(wrapper => {
+        const videoElement = wrapper.querySelector('video');
+        const glassCard = wrapper.querySelector('.video-glass-card');
+        
+        
+        if (videoElement && glassCard) {
+            videoElement.addEventListener('loadedmetadata', () => {
+                const width = videoElement.videoWidth;
+                const height = videoElement.videoHeight;
+                
+                if (width > height) {
+                    
+                    glassCard.style.maxWidth = "720px";
+                } else {
+                    
+                    glassCard.style.maxWidth = "420px";
+                }
+            });
+        }
+
+        
+        videoScrollerObserver.observe(wrapper);
+    });
+
+    
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.custom-media-player-adaptive').forEach(video => {
+            video.muted = false;
+            video.volume = 1.0;
+        });
+    }, { once: true });
+
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const scroller = document.querySelector('.tiktok-feed-scroller');
+        if (!scroller) return;
+
+        let isScrolling = false; 
+
+        
+        scroller.addEventListener('wheel', (event) => {
+            event.preventDefault(); 
+            if (isScrolling) return;
+
+            isScrolling = true;
+            const direction = event.deltaY > 0 ? 1 : -1; 
+            const slideHeight = window.innerHeight;
+
+            
+            scroller.scrollBy({
+                top: direction * slideHeight,
+                behavior: 'smooth'
+            });
+
+            
+            setTimeout(() => { isScrolling = false; }, 600);
+        }, { passive: false });
+
+        
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                event.preventDefault();
+                if (isScrolling) return;
+
+                isScrolling = true;
+                const direction = event.key === 'ArrowDown' ? 1 : -1;
+                const slideHeight = window.innerHeight;
+
+                scroller.scrollBy({
+                    top: direction * slideHeight,
+                    behavior: 'smooth'
+                });
+
+                setTimeout(() => { isScrolling = false; }, 600);
+            }
+        });
+    });
+</script>
 </body>
 </html>
