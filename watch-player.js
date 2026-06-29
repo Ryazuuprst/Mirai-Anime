@@ -2,7 +2,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const animeId = urlParams.get('id');
 let currentEpisode = parseInt(urlParams.get('ep')) || 1;
 
-let activeServerSelectionCode = 1;
+// Load the previously selected server from localStorage
+let activeServerSelectionCode = parseInt(localStorage.getItem('selectedServer')) || 1;
 let anikotoEmbedUrl = ""; 
 
 const watchQuery = `
@@ -22,9 +23,11 @@ function executePlayerUrlRefresh() {
     const finalEpisode = currentEpisode ? currentEpisode : "1";
 
     if (activeServerSelectionCode === 1) {
-        videoIframe.src = "https://megaplay.buzz/stream/ani/" + finalAnimeId + "/" + finalEpisode + "/sub";
+        // Server 1 (Sub) with sound enabled parameters added correctly
+        videoIframe.src = "https://megaplay.buzz/stream/ani/" + finalAnimeId + "/" + finalEpisode + "/sub?autoplay=1&muted=0";
     } else if (activeServerSelectionCode === 2) {
-        videoIframe.src = "https://megaplay.buzz/stream/ani/" + finalAnimeId + "/" + finalEpisode + "/dub";
+        // Server 2 (Dub) with sound enabled parameters added correctly
+        videoIframe.src = "https://megaplay.buzz/stream/ani/" + finalAnimeId + "/" + finalEpisode + "/dub?autoplay=1&muted=0";
     } else if (activeServerSelectionCode === 3) {
         if (anikotoEmbedUrl) {
             videoIframe.src = anikotoEmbedUrl;
@@ -34,11 +37,60 @@ function executePlayerUrlRefresh() {
     }
 }
 
+async function checkServerAvailability(serverCode, episodeNum) {
+    const finalAnimeId = animeId ? animeId : "1";
+    
+    try {
+        if (serverCode === 1) {
+            // Check Sub server
+            const response = await fetch("https://megaplay.buzz/stream/ani/" + finalAnimeId + "/" + episodeNum + "/sub?autoplay=1&muted=0", { method: "HEAD" });
+            return response.ok;
+        } else if (serverCode === 2) {
+            // Check Dub server
+            const response = await fetch("https://megaplay.buzz/stream/ani/" + finalAnimeId + "/" + episodeNum + "/dub?autoplay=1&muted=0", { method: "HEAD" });
+            return response.ok;
+        } else if (serverCode === 3) {
+            // Anikoto is available if we have the URL
+            return anikotoEmbedUrl ? true : false;
+        }
+    } catch (error) {
+        return false;
+    }
+    return false;
+}
+
+async function ensureServerAvailability() {
+    // Check if the currently selected server has the episode
+    const isAvailable = await checkServerAvailability(activeServerSelectionCode, currentEpisode);
+    
+    if (!isAvailable) {
+        // Try to find an available server
+        const serversToTry = [1, 2, 3].filter(s => s !== activeServerSelectionCode);
+        
+        for (const serverCode of serversToTry) {
+            const available = await checkServerAvailability(serverCode, currentEpisode);
+            if (available) {
+                activeServerSelectionCode = serverCode;
+                localStorage.setItem('selectedServer', serverCode);
+                updateServerButtons();
+                break;
+            }
+        }
+    }
+}
+
+
 function changeActiveServer(serverNumberCode) {
     if (activeServerSelectionCode === serverNumberCode) return;
     
     activeServerSelectionCode = serverNumberCode;
+    localStorage.setItem('selectedServer', serverNumberCode);
     
+    updateServerButtons();
+    executePlayerUrlRefresh();
+}
+
+function updateServerButtons() {
     const btn1 = document.getElementById("btn-server1");
     const btn2 = document.getElementById("btn-server2");
     const btn3 = document.getElementById("btn-server3");
@@ -47,11 +99,9 @@ function changeActiveServer(serverNumberCode) {
     btn2.classList.remove("active");
     btn3.classList.remove("active");
 
-    if (serverNumberCode === 1) btn1.classList.add("active");
-    else if (serverNumberCode === 2) btn2.classList.add("active");
-    else if (serverNumberCode === 3) btn3.classList.add("active");
-
-    executePlayerUrlRefresh();
+    if (activeServerSelectionCode === 1) btn1.classList.add("active");
+    else if (activeServerSelectionCode === 2) btn2.classList.add("active");
+    else if (activeServerSelectionCode === 3) btn3.classList.add("active");
 }
 
 async function initializeWatchPlayer() {
@@ -101,6 +151,8 @@ async function initializeWatchPlayer() {
             console.log("Anikoto data bridge tracker statement:", anikotoErr.message);
         }
 
+        await ensureServerAvailability();
+        updateServerButtons();
         executePlayerUrlRefresh();
 
         episodeGrid.innerHTML = ""; 

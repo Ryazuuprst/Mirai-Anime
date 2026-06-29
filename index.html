@@ -25,8 +25,47 @@
                 <input type='checkbox' id='check' />
                 <span class="menu">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="">Genre</a></li>
-                    <li><a href="">Types</a></li>
+                    <li class="nav-dropdown">
+                        <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Genre <i class="fas fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><button type="button" class="genre-link" data-genre="Action">Action</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Adventure">Adventure</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Fantasy">Fantasy</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Sci-Fi">Sci-Fi</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Comedy">Comedy</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Drama">Drama</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Romance">Romance</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Slice of Life">Slice of Life</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Mystery">Mystery</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Supernatural">Supernatural</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Psychological">Psychological</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Thriller">Thriller</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Suspense">Suspense</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Horror">Horror</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Isekai">Isekai</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Shounen">Shounen</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Seinen">Seinen</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Sports">Sports</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Historical">Historical</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Martial Arts">Martial Arts</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Super Power">Super Power</button></li>
+                        </ul>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Types <i class="fas fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><button type="button" class="types-link" data-type="TV">TV Series</button></li>
+                            <li><button type="button" class="types-link" data-type="MOVIE">Movies</button></li>
+                            <li><button type="button" class="types-link" data-type="OVA">OVAs</button></li>
+                            <li><button type="button" class="types-link" data-type="ONA">ONAs</button></li>
+                            <li><button type="button" class="types-link" data-type="SPECIAL">Specials</button></li>
+                            <li><button type="button" class="types-link" data-type="MUSIC">Music</button></li>
+                        </ul>
+                    </li>
                     <li><a href="">Updated</a></li>
                     <li><a href="">Feedback</a></li>
                     <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
@@ -41,7 +80,7 @@
 
     <h1> Mirai-Anime</h1>
 <marquee style="color: #4ed9ff; font-weight: bold; background-color: #121f26; padding: 8px 0; font-size: 14px; border-radius: 4px;">
-        Welcome to the trial launch of this website! Please leave your thoughts about how to upgrade this website.<b>
+        Welcome to the official launch of Mirai-Anime! Please leave your thoughts about how to improve this website.<b>
         Some may not working as they're still not done.
     </marquee>
 
@@ -50,8 +89,21 @@
 </center>
 <center>
 <img src="Iroha.png.png" width="100%" height="700">
-<div class="follow-us">
-    follow us here
+<div class="follow-us-row">
+    <div class="follow-us-card">
+        <span class="follow-us-label">Follow us</span>
+        <a href="https://discord.gg/sxFWDnvRP" target="_blank">Join our Discord</a>
+    </div>
+    <div class="follow-us-card">
+        <span class="follow-us-label">Follow us
+        </span>
+        <a href="https://www.reddit.com/user/Mirai-Animedev/?utm_source=share&utm_medium=mweb3x&utm_name=mweb3xcss&utm_term=1&utm_content=share_button" target="_blank">Visit Reddit</a>
+    </div>
+    <div class="follow-us-card">
+        <span class="follow-us-label">Follow us          
+        </span>
+        <a href="https://www.tiktok.com/@miraianimeio?is_from_webapp=1&sender_device=pc">Follow our Tiktok</a>
+    </div>
 </div>
 </center>
 <br>
@@ -67,7 +119,9 @@
     <div id="main-homepage-content">
         
         <h3 class="section-title">✨ Recommended For You</h3>
-        <div id="recommended-container" class="anime-grid-container"></div>
+        <div class="carousel-viewport">
+            <div id="recommended-container" class="anime-carousel-track"></div>
+        </div>
 
         
         <h3 class="section-title">🔥 Trending Now</h3>
@@ -104,6 +158,34 @@ const searchQuery = `
 query ($search: String) {
   Page (page: 1, perPage: 30) {
     media (type: ANIME, search: $search) {
+      id
+      title { english romaji }
+      coverImage { large }
+      episodes
+      format
+      nextAiringEpisode { episode }
+    }
+  }
+}`;
+
+const genreQuery = `
+query ($genre: String) {
+  Page (page: 1, perPage: 30) {
+    media (type: ANIME, genre: $genre, sort: TRENDING_DESC) {
+      id
+      title { english romaji }
+      coverImage { large }
+      episodes
+      format
+      nextAiringEpisode { episode }
+    }
+  }
+}`;
+
+const typeQuery = `
+query ($format: MediaFormat) {
+  Page (page: 1, perPage: 50) {
+    media (type: ANIME, format: $format, sort: TRENDING_DESC) {
       id
       title { english romaji }
       coverImage { large }
@@ -179,9 +261,8 @@ async function loadHomepageDatabase() {
         recommendedContainer.innerHTML = "";
         trendingContainer.innerHTML = "";
 
-        recommendedList.forEach(anime => {
-            recommendedContainer.insertAdjacentHTML("beforeend", generateCardHtml(anime));
-        });
+        const recommendedMarkup = recommendedList.map(anime => generateCardHtml(anime)).join("");
+        recommendedContainer.insertAdjacentHTML("beforeend", recommendedMarkup + recommendedMarkup);
 
         trendingList.forEach(anime => {
             trendingContainer.insertAdjacentHTML("beforeend", generateCardHtml(anime));
@@ -249,6 +330,60 @@ async function executeAnimeSearch(keyword) {
     }
 }
 
+async function executeGenreSearch(genre) {
+    const searchSection = document.getElementById("search-results-section");
+    const mainContent = document.getElementById("main-homepage-content");
+    const searchContainer = document.getElementById("search-container");
+    const searchTitle = document.getElementById("search-title");
+
+    if (!searchSection || !mainContent || !searchContainer || !searchTitle) return;
+
+    const selectedGenre = (genre || "").trim();
+
+    if (!selectedGenre) {
+        searchSection.style.display = "none";
+        mainContent.style.display = "block";
+        return;
+    }
+
+    mainContent.style.display = "none";
+    searchSection.style.display = "block";
+    searchTitle.textContent = `🎞️ ${selectedGenre} anime`;
+    searchContainer.innerHTML = "<p style='padding-left: 5px; color: #4ed9ff; width: 100%; grid-column: 1 / -1;'>⏳ Loading genre collection...</p>";
+
+    try {
+        const response = await fetch("https://graphql.anilist.co", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                query: genreQuery,
+                variables: { genre: selectedGenre }
+            })
+        });
+
+        if (!response.ok) throw new Error("Genre request failed");
+
+        const jsonResult = await response.json();
+        const resultsList = jsonResult.data.Page.media || [];
+
+        searchContainer.innerHTML = "";
+        searchTitle.textContent = `🎞️ ${selectedGenre} anime`;
+
+        if (resultsList.length === 0) {
+            searchContainer.innerHTML = "<p style='padding-left: 5px; color: #ff3e6c; width: 100%; grid-column: 1 / -1;'>❌ No anime found for this genre yet.</p>";
+            return;
+        }
+
+        resultsList.forEach(anime => {
+            searchContainer.insertAdjacentHTML("beforeend", generateCardHtml(anime));
+        });
+    } catch (error) {
+        searchContainer.innerHTML = `<p style="color: #ff3e6c; padding-left: 5px; grid-column: 1 / -1;">Genre load failed: ${error.message}</p>`;
+    }
+}
 
 const searchInput = document.getElementById("animeSearchBox");
 const searchButton = document.getElementById("animeSearchBtn");
@@ -269,6 +404,94 @@ if (searchInput) {
         }
     });
 }
+
+document.querySelectorAll(".genre-link").forEach(button => {
+    button.addEventListener("click", () => {
+        executeGenreSearch(button.dataset.genre);
+        document.querySelectorAll(".nav-dropdown.open").forEach(dropdown => dropdown.classList.remove("open"));
+    });
+});
+
+async function executeTypeSearch(format) {
+    const searchSection = document.getElementById("search-results-section");
+    const mainContent = document.getElementById("main-homepage-content");
+    const searchContainer = document.getElementById("search-container");
+    const searchTitle = document.getElementById("search-title");
+
+    if (!searchSection || !mainContent || !searchContainer || !searchTitle) return;
+
+    mainContent.style.display = "none";
+    searchSection.style.display = "block";
+    
+    const formatNames = {
+        "TV": "TV Series",
+        "MOVIE": "Movies",
+        "OVA": "OVAs",
+        "ONA": "ONAs",
+        "SPECIAL": "Specials",
+        "MUSIC": "Music"
+    };
+    
+    searchTitle.textContent = `📺 ${formatNames[format] || format}`;
+    searchContainer.innerHTML = "<p style='padding-left: 5px; color: #4ed9ff; width: 100%; grid-column: 1 / -1;'>⏳ Loading anime by type...</p>";
+
+    try {
+        const response = await fetch("https://graphql.anilist.co", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                query: typeQuery,
+                variables: { format: format }
+            })
+        });
+
+        if (!response.ok) throw new Error("Type request failed");
+
+        const jsonResult = await response.json();
+        const resultsList = jsonResult.data.Page.media || [];
+
+        searchContainer.innerHTML = "";
+        searchTitle.textContent = `📺 ${formatNames[format] || format}`;
+
+        if (resultsList.length === 0) {
+            searchContainer.innerHTML = "<p style='padding-left: 5px; color: #ff3e6c; width: 100%; grid-column: 1 / -1;'>❌ No anime found for this type.</p>";
+            return;
+        }
+
+        resultsList.forEach(anime => {
+            searchContainer.insertAdjacentHTML("beforeend", generateCardHtml(anime));
+        });
+    } catch (error) {
+        searchContainer.innerHTML = `<p style="color: #ff3e6c; padding-left: 5px; grid-column: 1 / -1;">Type load failed: ${error.message}</p>`;
+    }
+}
+
+document.querySelectorAll(".types-link").forEach(button => {
+    button.addEventListener("click", () => {
+        executeTypeSearch(button.dataset.type);
+        document.querySelectorAll(".nav-dropdown.open").forEach(dropdown => dropdown.classList.remove("open"));
+    });
+});
+
+document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
+    toggle.addEventListener("click", (event) => {
+        event.preventDefault();
+        const parentDropdown = toggle.closest(".nav-dropdown");
+        if (!parentDropdown) return;
+        parentDropdown.classList.toggle("open");
+    });
+});
+
+document.addEventListener("click", (event) => {
+    document.querySelectorAll(".nav-dropdown.open").forEach(dropdown => {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove("open");
+        }
+    });
+});
 
 
 loadHomepageDatabase();
