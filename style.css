@@ -20,22 +20,22 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
     list-style: none;
     position: sticky;
     top: 0;
     background-color: var(--color2);
-    padding: 12px 20px;
+    padding: 12px 18px;
     z-index: 1000;
 }
 .nav-search-item {
-    position: relative;     
+    position: relative;
     flex-grow: 0;
     width: 100%;
-    max-width: 240px;
-    margin: 0 auto;         
+    max-width: 280px;
+    margin: 0 auto;
     padding: 0 10px;
 }
-
 
 .search-wrap {
     position: relative;
@@ -44,10 +44,9 @@ header {
     align-items: center;
 }
 
-
 #animeSearchBox {
     width: 100%;
-    padding: 8px 12px 8px 34px; 
+    padding: 8px 12px 8px 34px;
     background-color: #18181b;
     border: 1px solid #27272a;
     border-radius: 6px;
@@ -57,21 +56,50 @@ header {
     transition: all 0.2s ease;
 }
 
-
 .search-icon {
     position: absolute;
-    left: 20px;             
-    z-index: 2;             
+    left: 20px;
+    z-index: 2;
     color: #71717a;
     pointer-events: none;
     font-size: 12px;
 }
 
-
-
-.logo img {width: 40px;}
-.menu {display: flex;}
-.menu > li {padding-left: 30px;}
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 60px;
+}
+.logo img {
+    width: 44px;
+    height: auto;
+}
+.menu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    right: auto;
+    transform: none;
+    width: 200px;
+    z-index: 1001;
+    background-color: var(--color2);
+    border: 1px solid #2d3748;
+    border-radius: 8px;
+    padding: 16px 20px;
+    box-shadow: 0 18px 38px rgba(0,0,0,.35);
+}
+.menu > li {
+    padding-left: 0;
+    margin: 0;
+    flex-basis: auto;
+    width: 100%;
+    text-align: center;
+}
 .menu li a, .menu li button {
     display: inline-block;
     text-decoration: none;
@@ -84,6 +112,8 @@ header {
     border: 0;
     cursor: pointer;
     font: inherit;
+    width: 100%;
+    padding: 8px 0;
 }
 .nav-dropdown {position: relative;}
 .dropdown-toggle {display: inline-flex; align-items: center; gap: 6px;}
@@ -91,7 +121,7 @@ header {
     position: absolute;
     top: calc(100% + 8px);
     left: 0;
-    min-width: 240px;
+    min-width: 200px;
     max-width: 92vw;
     max-height: 70vh;
     overflow-y: auto;
@@ -106,7 +136,7 @@ header {
     visibility: hidden;
     transform: translateY(-6px);
     transition: all 0.2s ease;
-    z-index: 1001;
+    z-index: 1002;
 }
 .nav-dropdown.open .dropdown-menu,
 .nav-dropdown:hover .dropdown-menu,
@@ -158,64 +188,51 @@ header {
     transition: 0.15s ease-in-out;
 }
 .menu li a:hover:after {width: 100%;}
-.menu li a::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: var(--color1);
-    transition: 0.15s ease-in-out;
-}
-.menu li a:hover:after {width: 100%;}
 .open-menu , .close-menu {
     position: absolute;
     color: var(--color1);
     cursor: pointer;
     font-size: 1.5rem;
-    display: none;
+    z-index: 1002;
 }
 .open-menu {
     top: 50%;
-    right: 20px;
+    left: 50px;
+    right: auto;
     transform: translateY(-50%);
+    display: block;
 }
 .close-menu {
-    top: 20px;
-    right: 20px;
+    top:   -12%;
+    left: 47px;
+    right: auto;
+    transform: translateY(-50%);
+    display: none;
 }
 #check {display: none;}
+#check:checked ~ .open-menu {display: none !important;}
+#check:checked ~ .menu {display: flex;}
+#check:checked ~ .menu .close-menu {display: block !important;}
+
 @media(max-width: 610px){
-    .menu {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 80%;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        right: -100%;
-        z-index: 100;
-        background-color: var(--color2);
-        transition: all 0.2s ease-in-out;
-    }
-    .menu > li {margin-top: 40px; padding-left: 0;}
-    .menu li a, .menu li button {padding: 10px;}
-    .nav-dropdown {width: 100%; display: flex; flex-direction: column; align-items: center;}
+    .nav-bar {position: relative;}
+    .menu {width: 180px; gap: 12px;}
+    .menu li a, .menu li button {font-size: 12px; padding: 6px 0;}
+    .nav-dropdown {display: flex; flex-direction: column; align-items: center;}
     .dropdown-menu {
         position: static;
         margin-top: 8px;
-        width: 100%;
-        max-width: 220px;
+        width: 160px;
+        max-width: 90vw;
         opacity: 1;
         visibility: visible;
         transform: none;
         display: none;
+        grid-template-columns: 1fr;
+        gap: 4px;
     }
     .nav-dropdown.open .dropdown-menu {
-        display: flex;
+        display: grid;
     }
     .open-menu , .close-menu {display: block;}
-    #check:checked ~ .menu {right: 0;}
 }

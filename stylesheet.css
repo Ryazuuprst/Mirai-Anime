@@ -265,6 +265,35 @@ a {
             background-color: #121f26;
         }
 
+        .trending-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 0 20px 14px 20px;
+        }
+
+        .trending-controls button {
+            border: 1px solid rgba(255,255,255,0.18);
+            background: #111827;
+            color: #ffffff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+            font-size: 13px;
+        }
+
+        .trending-controls button:hover:not(:disabled) {
+            background: #1f2937;
+            transform: translateY(-1px);
+        }
+
+        .trending-controls button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
         .carousel-viewport {
             overflow: hidden;
             padding: 8px 0 20px 20px;
@@ -329,6 +358,234 @@ a {
 
 
 
+.slider {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.slides {
+  width: 300%;
+  height: 100%;
+  display: flex;
+}
+
+.slides input {
+  display: none;
+}
+
+.slide {
+  width: 100%;
+  transition: 0.6s;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 
-        
+.navigation-manual {
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.manual-btn {
+  border: 2px solid #fff;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 0 5px;
+}
+
+.manual-btn:hover {
+  background: #fff;
+}
+
+    .navigation-auto {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  bottom: 10px;
+}
+
+.navigation-auto div {
+  border: 2px solid #fff;
+  padding: 5px;
+  border-radius: 50%;
+  transition: 0.3s;
+  margin: 0 5px;
+}
+
+
+#radio1:checked ~ .first {
+  margin-left: 0;
+}
+#radio2:checked ~ .first {
+  margin-left: -100%;
+}
+#radio3:checked ~ .first {
+  margin-left: -200%;
+}
+
+
+
+.hero-container {
+  position: relative;
+  width: 80%;            
+  max-width: 800px;      
+  height: 50vh;          
+  margin: 40px auto;     
+  overflow: hidden;
+  background-color: #000;
+  border-radius: 12px;   
+}
+
+
+.hero-container video, 
+.hero-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+
+
+.modern-footer {
+  background-color: #121f26; 
+  color: #7a7a7a;            
+  padding: 60px 4% 30px 4%;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+.footer-container {
+  border-top: 1px solid #ebe5e5; 
+  padding-top: 40px;             
+  margin-top: 0;
+  
+ 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+
+.brand-section {
+  flex: 1;
+  min-width: 280px;
+  max-width: 450px;
+  text-align: left; 
+}
+
+.footer-logo {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.footer-disclaimer {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+
+.footer-links-group {
+  display: flex;
+  flex-wrap: nowrap; 
+  flex: 1;
+  min-width: 280px;  
+  gap: 20px;
+}
+
+.footer-col {
+  width: 50%;        
+}
+
+.footer-col h3 {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+}
+
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 18px;
+}
+
+.footer-col ul li a {
+  color: #7a7a7a;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #ffffff;
+}
+
+
+.version-tag {
+  background-color: #1e1f29;
+  color: #707dfd;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-left: 6px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer-bottom {
+  border-top: 1px solid #ebe5e5;
+  margin-top: 60px;
+  padding-top: 25px;
+  text-align: center;
+  font-size: 0.85rem;
+}

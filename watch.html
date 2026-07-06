@@ -163,19 +163,67 @@
         <nav>
             <ul class='nav-bar'>
                 <li class='logo'><a href='index.html'><img src='Mirai-Anime.png'/></a></li>
-                
+  
+              <!-- 🔎 Dropdown results container -->
+  
+
+
                 <li class="nav-search-item">
                     <div class="search-wrap">
-                        <span class="search-icon" id="animeSearchBtn" style="cursor: pointer;">🔍</span>
+                        <span class="search-icon" id="animeSearchBtn" style="cursor: pointer;"><i class="fas fa-search"></i></span>
                         <input type="text" id="animeSearchBox" placeholder="Search anime series...">
                     </div>
+               <div id="nav-search-dropdown" 
+       style="position:absolute; top:100%; left:0; background:#1e293b; color:white;
+              width:250px; max-height:300px; overflow-y:auto;
+              border:1px solid #334155; border-radius:4px; display:none; z-index:999;">
+  </div>
                 </li>
 
                 <input type='checkbox' id='check' />
                 <span class="menu">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="">Genre</a></li>
-                    <li><a href="">Types</a></li>
+                    <li class="nav-dropdown">
+                        <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Genre <i class="fas fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><button type="button" class="genre-link" data-genre="Action">Action</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Adventure">Adventure</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Fantasy">Fantasy</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Sci-Fi">Sci-Fi</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Comedy">Comedy</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Drama">Drama</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Romance">Romance</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Slice of Life">Slice of Life</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Mystery">Mystery</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Supernatural">Supernatural</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Psychological">Psychological</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Thriller">Thriller</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Suspense">Suspense</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Horror">Horror</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Isekai">Isekai</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Shounen">Shounen</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Seinen">Seinen</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Sports">Sports</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Historical">Historical</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Martial Arts">Martial Arts</button></li>
+                            <li><button type="button" class="genre-link" data-genre="Super Power">Super Power</button></li>
+                        </ul>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Types <i class="fas fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><button type="button" class="types-link" data-type="TV">TV Series</button></li>
+                            <li><button type="button" class="types-link" data-type="MOVIE">Movies</button></li>
+                            <li><button type="button" class="types-link" data-type="OVA">OVAs</button></li>
+                            <li><button type="button" class="types-link" data-type="ONA">ONAs</button></li>
+                            <li><button type="button" class="types-link" data-type="SPECIAL">Specials</button></li>
+                            <li><button type="button" class="types-link" data-type="MUSIC">Music</button></li>
+                        </ul>
+                    </li>
                     <li><a href="">Updated</a></li>
                     <li><a href="">Feedback</a></li>
                     <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
@@ -201,7 +249,8 @@
             <span class="server-label"><i class="fas fa-server"></i> Switch Mirror:</span>
             <button class="server-btn active" id="btn-server1" onclick="changeActiveServer(1)"><i class="fas fa-closed-captioning"></i> MegaPlay (Sub)</button>
             <button class="server-btn" id="btn-server2" onclick="changeActiveServer(2)"><i class="fas fa-microphone"></i> MegaPlay (Dub)</button>
-            <button class="server-btn" id="btn-server3" onclick="changeActiveServer(3)"><i class="fas fa-bolt"></i> Server 3 (Anikoto)</button>
+            <button class="server-btn" id="btn-server3" onclick="changeActiveServer(3)"><i class="fas fa-microphone"></i> kwik (Sub)</button>
+            
         </div>
 
        
@@ -211,15 +260,17 @@
         </div>
 
        
-        <div class="episode-section">
+         <div class="episode-section">
             <h3 id="episodes-count-header">Episodes List</h3>
             <div class="episode-grid" id="episode-buttons-grid">
-                <!-- Clickable buttons populate instantly via watch-player.js -->
-            </div>
         </div>
+
     </div>
 
     
+
+    
     <script src="watch-player.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
