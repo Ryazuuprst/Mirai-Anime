@@ -440,14 +440,17 @@ a {
 
 .hero-container {
   position: relative;
-  width: 80%;            
-  max-width: 800px;      
-  height: 50vh;          
-  margin: 40px auto;     
+  width: 80%;
+  max-width: 800px;
+  min-width: 400px;    /* hindi bababa dito kahit maliit ang screen */
+  height: 50vh;
+  min-height: 250px;   /* hindi bababa dito kahit maliit ang screen */
+  margin: 40px auto;
   overflow: hidden;
   background-color: #000;
-  border-radius: 12px;   
+  border-radius: 12px;
 }
+
 
 
 .hero-container video, 
